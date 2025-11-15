@@ -8,3 +8,8 @@ wheels/
 
 # Virtual environments
 .venv
+.ipynb_checkpoints
+.virtual_documents
+build
+pydata_book.egg-info
+pythonfordataanalysis.egg-info
