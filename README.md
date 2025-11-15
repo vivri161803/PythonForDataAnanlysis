@@ -9,3 +9,11 @@ The notes you will find in this repository offer an introductory course on using
 The book *Python for Data Analysis* by Wes McKinney has been used as main source. 
 
 ![img.png](BookCover.png)
+
+
+
+# Guide to Chapters Content 
+0. **Python Tips and Tricks**: some tips, tricks and utilities of Python are shown. This one is an introductory chapter to make sure that we are on the same page
+1. **Numpy Introduction and Vectorized Computations**: in this chapter we give an elementary intrducrion to NumPy. Topics like arrays, slicing, filtering and unversal functions are covered
+2. **Pandas Introduction**
+
