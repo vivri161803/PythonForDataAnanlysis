@@ -9,7 +9,7 @@
 The notes you will find in this repository offer an introductory course on using Python for data analysis. 
 The book *Python for Data Analysis* by Wes McKinney has been used as main source. 
 
-![img.png](BookCover.png)
+![alt text](images/BookCover.png)
 
 ---
 
