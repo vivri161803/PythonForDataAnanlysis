@@ -23,3 +23,4 @@ The book *Python for Data Analysis* by Wes McKinney has been used as main source
    - **Introduzione**: _Vega Altair_ in a nutshell
    - **Typer, Marks, Channels**: main building blocks of _Altair_ 
    - **Trasformazioni sui dati**: transforming data with _Altair_ for straight-to-the-point visuals
+   - **Axes, Scales and Legends**: unsang heroes of visualization
