@@ -282,12 +282,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#il-framework-clean" id="toc-il-framework-clean" class="nav-link active" data-scroll-target="#il-framework-clean"><span class="header-section-number">14.0.1</span> Il Framework CLEAN</a></li>
-  <li><a href="#conceptualize-concettualizzazione" id="toc-conceptualize-concettualizzazione" class="nav-link" data-scroll-target="#conceptualize-concettualizzazione"><span class="header-section-number">14.0.2</span> 1. 🇨 - Conceptualize (Concettualizzazione)</a></li>
-  <li><a href="#locate-solvable-issues-problemi-risolvibili" id="toc-locate-solvable-issues-problemi-risolvibili" class="nav-link" data-scroll-target="#locate-solvable-issues-problemi-risolvibili"><span class="header-section-number">14.0.3</span> 2. 🇱 - Locate Solvable Issues (Problemi Risolvibili)</a></li>
-  <li><a href="#evaluate-unsolvable-issues-valutare-problemi-non-risolvibili" id="toc-evaluate-unsolvable-issues-valutare-problemi-non-risolvibili" class="nav-link" data-scroll-target="#evaluate-unsolvable-issues-valutare-problemi-non-risolvibili"><span class="header-section-number">14.1</span> 3. 🇪 - Evaluate Unsolvable Issues (Valutare problemi non risolvibili)</a></li>
-  <li><a href="#augment-data-arricchire-i-dati" id="toc-augment-data-arricchire-i-dati" class="nav-link" data-scroll-target="#augment-data-arricchire-i-dati"><span class="header-section-number">14.2</span> 4. 🅰️ - Augment Data (Arricchire i dati)</a></li>
-  <li><a href="#note-and-document-annotare" id="toc-note-and-document-annotare" class="nav-link" data-scroll-target="#note-and-document-annotare"><span class="header-section-number">14.3</span> 5. 🇳 - Note and Document (Annotare)</a></li>
+  <li><a href="#il-framework-clean" id="toc-il-framework-clean" class="nav-link active" data-scroll-target="#il-framework-clean"><span class="header-section-number">14.1</span> Il Framework CLEAN</a></li>
+  <li><a href="#conceptualize-concettualizzazione" id="toc-conceptualize-concettualizzazione" class="nav-link" data-scroll-target="#conceptualize-concettualizzazione"><span class="header-section-number">14.2</span> 🇨 - Conceptualize (Concettualizzazione)</a>
+  <ul class="collapse">
+  <li><a href="#locate-solvable-issues-problemi-risolvibili" id="toc-locate-solvable-issues-problemi-risolvibili" class="nav-link" data-scroll-target="#locate-solvable-issues-problemi-risolvibili"><span class="header-section-number">14.2.1</span> 🇱 - Locate Solvable Issues (Problemi Risolvibili)</a></li>
+  <li><a href="#evaluate-unsolvable-issues-valutare-problemi-non-risolvibili" id="toc-evaluate-unsolvable-issues-valutare-problemi-non-risolvibili" class="nav-link" data-scroll-target="#evaluate-unsolvable-issues-valutare-problemi-non-risolvibili"><span class="header-section-number">14.2.2</span> 🇪 - Evaluate Unsolvable Issues (Valutare problemi non risolvibili)</a></li>
+  <li><a href="#augment-data-arricchire-i-dati" id="toc-augment-data-arricchire-i-dati" class="nav-link" data-scroll-target="#augment-data-arricchire-i-dati"><span class="header-section-number">14.2.3</span> 🅰️ - Augment Data (Arricchire i dati)</a></li>
+  <li><a href="#note-and-document-annotare" id="toc-note-and-document-annotare" class="nav-link" data-scroll-target="#note-and-document-annotare"><span class="header-section-number">14.2.4</span> 🇳 - Note and Document (Annotare)</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.dev/vivri161803/PythonForDataAnanlysis/blob/main/P01_Preprocessing_GameZoneOrders.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/vivri161803/PythonForDataAnanlysis/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -446,8 +448,8 @@ COUNTRY_CODE                       object
 dtype: object</code></pre>
 </div>
 </div>
-<section id="il-framework-clean" class="level3" data-number="14.0.1">
-<h3 data-number="14.0.1" class="anchored" data-anchor-id="il-framework-clean"><span class="header-section-number">14.0.1</span> Il Framework CLEAN</h3>
+<section id="il-framework-clean" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="il-framework-clean"><span class="header-section-number">14.1</span> Il Framework CLEAN</h2>
 <center>
 <img src="./images/CLEAR_framework.jpg" width="500">
 </center>
@@ -457,8 +459,8 @@ dtype: object</code></pre>
 <p><strong>4. A - Augment the Data (Aumentare/Arricchire i dati)</strong> Questa fase serve a rendere il dataset più flessibile e potente per l’analisi. * <strong>Cosa fare:</strong> Creare nuove colonne utili. Ad esempio, scomporre una data in colonne separate per Anno, Mese e Settimana per facilitare i filtri temporali. * <strong>Nuove Metriche:</strong> Calcolare metriche derivate, come il “tempo di spedizione” (differenza in giorni tra data spedizione e acquisto).</p>
 <p><strong>5. N - Note and Document (Annotare e Documentare)</strong> L’ultimo passo è finalizzare l’Issues Log. * Bisogna annotare non solo il problema, ma anche la <strong>magnitudine</strong> (quanti dati sono impattati in percentuale) e la <strong>decisione finale</strong> presa (es. “Risolto”, “Lasciato così”, “Documentato”). * Questo serve come “paper trail” (traccia scritta) per dimostrare trasparenza e professionalità agli stakeholder o ai manager che revisionano il progetto.</p>
 </section>
-<section id="conceptualize-concettualizzazione" class="level3" data-number="14.0.2">
-<h3 data-number="14.0.2" class="anchored" data-anchor-id="conceptualize-concettualizzazione"><span class="header-section-number">14.0.2</span> 1. 🇨 - Conceptualize (Concettualizzazione)</h3>
+<section id="conceptualize-concettualizzazione" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="conceptualize-concettualizzazione"><span class="header-section-number">14.2</span> 🇨 - Conceptualize (Concettualizzazione)</h2>
 <p>Fase preliminare di comprensione del dataset (nessuna modifica ai dati).</p>
 <ul>
 <li><p>Identificare la “Grana”: Verificare che ogni riga corrisponda a un ordine unico (order_id).</p></li>
@@ -604,9 +606,8 @@ max       3146.880000
 Name: USD_PRICE, dtype: float64</code></pre>
 </div>
 </div>
-</section>
-<section id="locate-solvable-issues-problemi-risolvibili" class="level3" data-number="14.0.3">
-<h3 data-number="14.0.3" class="anchored" data-anchor-id="locate-solvable-issues-problemi-risolvibili"><span class="header-section-number">14.0.3</span> 2. 🇱 - Locate Solvable Issues (Problemi Risolvibili)</h3>
+<section id="locate-solvable-issues-problemi-risolvibili" class="level3" data-number="14.2.1">
+<h3 data-number="14.2.1" class="anchored" data-anchor-id="locate-solvable-issues-problemi-risolvibili"><span class="header-section-number">14.2.1</span> 🇱 - Locate Solvable Issues (Problemi Risolvibili)</h3>
 <p><em>Pulizia attiva degli errori evidenti e standardizzazione.</em> - Tipizzazione corretta delle colonne: - dobbiamo ancora assegnare il tipo giusto ad ognuno dei campi del dataset - <strong>Azione Pandas</strong>: usare i metodi <code>convert_dtypes()</code> e <code>astype()</code> - Standardizzazione Date: - La colonna <code>purchase_timestamp</code> ha formati misti, - <strong>Azione Pandas</strong>: Convertire la colonna in formato datetime (gestendo i formati misti) per uniformare tutto con <code>to_datetime()</code>.</p>
 <ul>
 <li>Pulizia Stringhe (Product Name):
@@ -629,8 +630,8 @@ Name: USD_PRICE, dtype: float64</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># copia dei dati che puliremo </span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>data_copy <span class="op">=</span> data.copy()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<section id="formattazione-dei-tipi-delle-colonne" class="level4" data-number="14.0.3.1">
-<h4 data-number="14.0.3.1" class="anchored" data-anchor-id="formattazione-dei-tipi-delle-colonne"><span class="header-section-number">14.0.3.1</span> Formattazione dei tipi delle colonne</h4>
+<section id="formattazione-dei-tipi-delle-colonne" class="level4" data-number="14.2.1.1">
+<h4 data-number="14.2.1.1" class="anchored" data-anchor-id="formattazione-dei-tipi-delle-colonne"><span class="header-section-number">14.2.1.1</span> Formattazione dei tipi delle colonne</h4>
 <p>Per prima cosa dobbiamo trovare il giusto tipe pe ogni campo del dataset. Possiamo utilizzare un metodo automatico di <em>pandas</em>, che permette, utilizzando le stesse regole inferenziali per il tipo dell’inizializzatore dell’oggetto <code>DataFrame</code>, di assegnare il miglior tipo di dato ai campi del dataset.</p>
 <div id="17fcf9e1" class="cell" data-execution_count="123">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>data_copy <span class="op">=</span> data_copy.convert_dtypes()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -674,8 +675,8 @@ dtype: object</code></pre>
 </div>
 </div>
 </section>
-<section id="standardizzazione-delle-date" class="level4" data-number="14.0.3.2">
-<h4 data-number="14.0.3.2" class="anchored" data-anchor-id="standardizzazione-delle-date"><span class="header-section-number">14.0.3.2</span> Standardizzazione delle date</h4>
+<section id="standardizzazione-delle-date" class="level4" data-number="14.2.1.2">
+<h4 data-number="14.2.1.2" class="anchored" data-anchor-id="standardizzazione-delle-date"><span class="header-section-number">14.2.1.2</span> Standardizzazione delle date</h4>
 <div id="ee6b6d30" class="cell" data-execution_count="144">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>data_copy.info()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1010,8 +1011,8 @@ memory usage: 1.9 MB</code></pre>
 </div>
 </div>
 </section>
-<section id="formattazione-dei-nomi-dei-prodotti" class="level4" data-number="14.0.3.3">
-<h4 data-number="14.0.3.3" class="anchored" data-anchor-id="formattazione-dei-nomi-dei-prodotti"><span class="header-section-number">14.0.3.3</span> Formattazione dei nomi dei prodotti</h4>
+<section id="formattazione-dei-nomi-dei-prodotti" class="level4" data-number="14.2.1.3">
+<h4 data-number="14.2.1.3" class="anchored" data-anchor-id="formattazione-dei-nomi-dei-prodotti"><span class="header-section-number">14.2.1.3</span> Formattazione dei nomi dei prodotti</h4>
 <div id="5e6be6e1" class="cell" data-execution_count="100">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>data_copy.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="100">
@@ -1144,10 +1145,10 @@ memory usage: 1.9 MB</code></pre>
 </div>
 </div>
 </section>
-<section id="valori-mancanti-in-ogni-campo" class="level4" data-number="14.0.3.4">
-<h4 data-number="14.0.3.4" class="anchored" data-anchor-id="valori-mancanti-in-ogni-campo"><span class="header-section-number">14.0.3.4</span> Valori Mancanti in ogni campo</h4>
-<section id="product_id" class="level5" data-number="14.0.3.4.1">
-<h5 data-number="14.0.3.4.1" class="anchored" data-anchor-id="product_id"><span class="header-section-number">14.0.3.4.1</span> PRODUCT_ID</h5>
+<section id="valori-mancanti-in-ogni-campo" class="level4" data-number="14.2.1.4">
+<h4 data-number="14.2.1.4" class="anchored" data-anchor-id="valori-mancanti-in-ogni-campo"><span class="header-section-number">14.2.1.4</span> Valori Mancanti in ogni campo</h4>
+<section id="product_id" class="level5" data-number="14.2.1.4.1">
+<h5 data-number="14.2.1.4.1" class="anchored" data-anchor-id="product_id"><span class="header-section-number">14.2.1.4.1</span> PRODUCT_ID</h5>
 <div id="766f667a" class="cell" data-execution_count="149">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>data_copy[<span class="st">'PRODUCT_ID'</span>].unique() <span class="co"># tutto ok </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="149">
@@ -1162,8 +1163,8 @@ Length: 46, dtype: string</code></pre>
 </div>
 </div>
 </section>
-<section id="usd_price" class="level5" data-number="14.0.3.4.2">
-<h5 data-number="14.0.3.4.2" class="anchored" data-anchor-id="usd_price"><span class="header-section-number">14.0.3.4.2</span> USD_PRICE</h5>
+<section id="usd_price" class="level5" data-number="14.2.1.4.2">
+<h5 data-number="14.2.1.4.2" class="anchored" data-anchor-id="usd_price"><span class="header-section-number">14.2.1.4.2</span> USD_PRICE</h5>
 <p>Se ordiniamo l’array dei valori assunti nel campo USD_PRICE vediamo come ci siano 2 problemi diversi in questa colonna: - il valore 0 - il valore <em>nan</em></p>
 <p>Affrontiamo questi problemi unno per volta.</p>
 <div id="88f2aee9" class="cell" data-execution_count="239">
@@ -1322,8 +1323,8 @@ Length: 189, dtype: Float64</code></pre>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df[col][df[col].isna()]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="purchase_platform" class="level5" data-number="14.0.3.4.3">
-<h5 data-number="14.0.3.4.3" class="anchored" data-anchor-id="purchase_platform"><span class="header-section-number">14.0.3.4.3</span> PURCHASE_PLATFORM</h5>
+<section id="purchase_platform" class="level5" data-number="14.2.1.4.3">
+<h5 data-number="14.2.1.4.3" class="anchored" data-anchor-id="purchase_platform"><span class="header-section-number">14.2.1.4.3</span> PURCHASE_PLATFORM</h5>
 <div id="ee02635b" class="cell" data-execution_count="179">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>df_isna(data_copy, <span class="st">'PURCHASE_PLATFORM'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1336,8 +1337,8 @@ Length: 2, dtype: string</code></pre>
 </div>
 </div>
 </section>
-<section id="marketing_channel-account_creation_method" class="level5" data-number="14.0.3.4.4">
-<h5 data-number="14.0.3.4.4" class="anchored" data-anchor-id="marketing_channel-account_creation_method"><span class="header-section-number">14.0.3.4.4</span> MARKETING_CHANNEL, ACCOUNT_CREATION_METHOD</h5>
+<section id="marketing_channel-account_creation_method" class="level5" data-number="14.2.1.4.4">
+<h5 data-number="14.2.1.4.4" class="anchored" data-anchor-id="marketing_channel-account_creation_method"><span class="header-section-number">14.2.1.4.4</span> MARKETING_CHANNEL, ACCOUNT_CREATION_METHOD</h5>
 <p>Notiamo come manchino 83 valori per il campo MARKETING_CHANNEL e ACCOUNT_CREATION_METHOD.</p>
 <p>Per quanto riguarda il campo ACCOUNT_CREATION_METHOD non possiamo fare niente, in mancanza delle risorse necessarie per poter sostituire i valori mancanti. Per la colonna MARKETING_CHANNEL possiamo sostituire i valori nulli con <code>'unknown'</code>.</p>
 <div id="0d40a865" class="cell" data-execution_count="180">
@@ -1415,8 +1416,8 @@ Name: ACCOUNT_CREATION_METHOD, Length: 83, dtype: string</code></pre>
 </div>
 </section>
 </section>
-<section id="valori-duplicati" class="level4" data-number="14.0.3.5">
-<h4 data-number="14.0.3.5" class="anchored" data-anchor-id="valori-duplicati"><span class="header-section-number">14.0.3.5</span> Valori duplicati</h4>
+<section id="valori-duplicati" class="level4" data-number="14.2.1.5">
+<h4 data-number="14.2.1.5" class="anchored" data-anchor-id="valori-duplicati"><span class="header-section-number">14.2.1.5</span> Valori duplicati</h4>
 <div id="98f5bbe3" class="cell" data-execution_count="203">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>data_copy.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="203">
@@ -1594,8 +1595,8 @@ Name: ACCOUNT_CREATION_METHOD, Length: 83, dtype: string</code></pre>
 </div>
 <p>Nonostante questo problema colpisca il 10% dei nostri dati, non abbiamo modo di risolverlo, in mancanza di una fonte di dati ufficiale che ci aiuti a correggere i dati corrotti.</p>
 </section>
-<section id="problemi-di-logica-di-spedizione" class="level4" data-number="14.0.3.6">
-<h4 data-number="14.0.3.6" class="anchored" data-anchor-id="problemi-di-logica-di-spedizione"><span class="header-section-number">14.0.3.6</span> Problemi di Logica di Spedizione</h4>
+<section id="problemi-di-logica-di-spedizione" class="level4" data-number="14.2.1.6">
+<h4 data-number="14.2.1.6" class="anchored" data-anchor-id="problemi-di-logica-di-spedizione"><span class="header-section-number">14.2.1.6</span> Problemi di Logica di Spedizione</h4>
 <p>Infine notiamo come ci siano delle entrate in cui SHIP_TS e minore di PURCHASE_TS. Anche in questo caso il meglio che possiamo fare e additare l’errore. Non abbiamo fonti valide per sostituire i dati.</p>
 <div id="204c20d9" class="cell" data-execution_count="252">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>invalid_shippig_logic <span class="op">=</span> data_copy[<span class="st">'SHIP_TS'</span>] <span class="op">&lt;</span> data_copy[<span class="st">'PURCHASE_TS'</span>]</span>
@@ -1607,8 +1608,8 @@ Name: ACCOUNT_CREATION_METHOD, Length: 83, dtype: string</code></pre>
 </div>
 </section>
 </section>
-<section id="evaluate-unsolvable-issues-valutare-problemi-non-risolvibili" class="level2" data-number="14.1">
-<h2 data-number="14.1" class="anchored" data-anchor-id="evaluate-unsolvable-issues-valutare-problemi-non-risolvibili"><span class="header-section-number">14.1</span> 3. 🇪 - Evaluate Unsolvable Issues (Valutare problemi non risolvibili)</h2>
+<section id="evaluate-unsolvable-issues-valutare-problemi-non-risolvibili" class="level3" data-number="14.2.2">
+<h3 data-number="14.2.2" class="anchored" data-anchor-id="evaluate-unsolvable-issues-valutare-problemi-non-risolvibili"><span class="header-section-number">14.2.2</span> 🇪 - Evaluate Unsolvable Issues (Valutare problemi non risolvibili)</h3>
 <div id="71331c66" class="cell" data-execution_count="196">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb77"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">--- STEP E: Evaluate Unsolvable Issues ---"</span>)</span>
 <span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1638,8 +1639,8 @@ Ordini con logica spedizione errata: 1993 (9.1%)</code></pre>
 </div>
 </div>
 </section>
-<section id="augment-data-arricchire-i-dati" class="level2" data-number="14.2">
-<h2 data-number="14.2" class="anchored" data-anchor-id="augment-data-arricchire-i-dati"><span class="header-section-number">14.2</span> 4. 🅰️ - Augment Data (Arricchire i dati)</h2>
+<section id="augment-data-arricchire-i-dati" class="level3" data-number="14.2.3">
+<h3 data-number="14.2.3" class="anchored" data-anchor-id="augment-data-arricchire-i-dati"><span class="header-section-number">14.2.3</span> 🅰️ - Augment Data (Arricchire i dati)</h3>
 <div id="67293783" class="cell" data-execution_count="262">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb79"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">--- STEP A: Augment Data ---"</span>)</span>
 <span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1772,8 +1773,8 @@ Ordini con logica spedizione errata: 1993 (9.1%)</code></pre>
 </div>
 </div>
 </section>
-<section id="note-and-document-annotare" class="level2" data-number="14.3">
-<h2 data-number="14.3" class="anchored" data-anchor-id="note-and-document-annotare"><span class="header-section-number">14.3</span> 5. 🇳 - Note and Document (Annotare)</h2>
+<section id="note-and-document-annotare" class="level3" data-number="14.2.4">
+<h3 data-number="14.2.4" class="anchored" data-anchor-id="note-and-document-annotare"><span class="header-section-number">14.2.4</span> 🇳 - Note and Document (Annotare)</h3>
 <div id="c216cff8" class="cell" data-execution_count="200">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb81"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">--- STEP N: Note &amp; Document ---"</span>)</span>
 <span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1927,6 +1928,7 @@ Dataset Finale:</code></pre>
 </div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

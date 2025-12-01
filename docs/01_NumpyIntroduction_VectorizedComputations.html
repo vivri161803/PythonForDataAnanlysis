@@ -279,14 +279,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#numpy-ndarray" id="toc-numpy-ndarray" class="nav-link active" data-scroll-target="#numpy-ndarray"><span class="header-section-number">3.1</span> 1. Numpy ndarray</a></li>
-  <li><a href="#slicing" id="toc-slicing" class="nav-link" data-scroll-target="#slicing"><span class="header-section-number">3.2</span> 2. Slicing</a></li>
-  <li><a href="#funzioni-universali" id="toc-funzioni-universali" class="nav-link" data-scroll-target="#funzioni-universali"><span class="header-section-number">3.3</span> 3. Funzioni Universali</a></li>
-  <li><a href="#programmazione-orientata-agli-array" id="toc-programmazione-orientata-agli-array" class="nav-link" data-scroll-target="#programmazione-orientata-agli-array"><span class="header-section-number">3.4</span> 4. Programmazione orientata agli array</a>
+  <li><a href="#numpy-ndarray" id="toc-numpy-ndarray" class="nav-link active" data-scroll-target="#numpy-ndarray"><span class="header-section-number">3.1</span> Numpy ndarray</a></li>
+  <li><a href="#slicing" id="toc-slicing" class="nav-link" data-scroll-target="#slicing"><span class="header-section-number">3.2</span> Slicing</a></li>
+  <li><a href="#funzioni-universali" id="toc-funzioni-universali" class="nav-link" data-scroll-target="#funzioni-universali"><span class="header-section-number">3.3</span> Funzioni Universali</a></li>
+  <li><a href="#programmazione-orientata-agli-array" id="toc-programmazione-orientata-agli-array" class="nav-link" data-scroll-target="#programmazione-orientata-agli-array"><span class="header-section-number">3.4</span> Programmazione orientata agli array</a>
   <ul class="collapse">
   <li><a href="#esercizio-1-scrivi-una-funzione-che-permetta-di-capire-se-due-array-sono-compatibili-o-meno-per-il-broadcasting.-utilizzare-la-funzione-zip_longestdal-pacchetto-iter_tools.-carcare-online-la-documentazione-per-la-funzione." id="toc-esercizio-1-scrivi-una-funzione-che-permetta-di-capire-se-due-array-sono-compatibili-o-meno-per-il-broadcasting.-utilizzare-la-funzione-zip_longestdal-pacchetto-iter_tools.-carcare-online-la-documentazione-per-la-funzione." class="nav-link" data-scroll-target="#esercizio-1-scrivi-una-funzione-che-permetta-di-capire-se-due-array-sono-compatibili-o-meno-per-il-broadcasting.-utilizzare-la-funzione-zip_longestdal-pacchetto-iter_tools.-carcare-online-la-documentazione-per-la-funzione."><span class="header-section-number">3.4.1</span> <strong>Esercizio 1</strong> Scrivi una funzione che permetta di capire se due array sono compatibili o meno per il broadcasting. Utilizzare la funzione <code>zip_longest</code>dal pacchetto <code>iter_tools</code>. Carcare online la documentazione per la funzione.</a></li>
   </ul></li>
-  <li><a href="#metodi-per-array-booleani" id="toc-metodi-per-array-booleani" class="nav-link" data-scroll-target="#metodi-per-array-booleani"><span class="header-section-number">3.5</span> 5. Metodi per array booleani</a></li>
+  <li><a href="#metodi-per-array-booleani" id="toc-metodi-per-array-booleani" class="nav-link" data-scroll-target="#metodi-per-array-booleani"><span class="header-section-number">3.5</span> Metodi per array booleani</a></li>
   <li><a href="#esericizio-random-walk" id="toc-esericizio-random-walk" class="nav-link" data-scroll-target="#esericizio-random-walk"><span class="header-section-number">3.6</span> Esericizio: Random Walk</a>
   <ul class="collapse">
   <li><a href="#parte-1" id="toc-parte-1" class="nav-link" data-scroll-target="#parte-1"><span class="header-section-number">3.6.1</span> Parte 1</a></li>
@@ -319,7 +319,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <section id="numpy-ndarray" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="numpy-ndarray"><span class="header-section-number">3.1</span> 1. Numpy ndarray</h2>
+<h2 data-number="3.1" class="anchored" data-anchor-id="numpy-ndarray"><span class="header-section-number">3.1</span> Numpy ndarray</h2>
 <p>Creare un array e piuttosto semplice. Di per se possiamo immaginare gli ndarray di numpy come versioni potenziate dellle liste native di Python.</p>
 <div id="7507633c-c028-4e7c-bc3c-600d49aef4ec" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2025-11-14T20:34:45.754688Z&quot;,&quot;iopub.status.busy&quot;:&quot;2025-11-14T20:34:45.754231Z&quot;,&quot;iopub.status.idle&quot;:&quot;2025-11-14T20:34:45.926801Z&quot;,&quot;shell.execute_reply&quot;:&quot;2025-11-14T20:34:45.925727Z&quot;,&quot;shell.execute_reply.started&quot;:&quot;2025-11-14T20:34:45.754647Z&quot;}}" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np </span>
@@ -435,7 +435,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="slicing" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="slicing"><span class="header-section-number">3.2</span> 2. Slicing</h2>
+<h2 data-number="3.2" class="anchored" data-anchor-id="slicing"><span class="header-section-number">3.2</span> Slicing</h2>
 <p>Una delle operazioni piu importanti che possiamo effettuare su un array e lo <em>slicing</em>, ovvero selezionare un sottogruppo degli elementi presenti nell’array original. Quest’operazione avviene in maniera simile sugli array numpy rispetto a quanto avverrebbe per le liste di Python, ma con qualche differenza fondamentale.</p>
 <div id="e411b4e5-968f-463a-b2da-222c27f39827" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># slices of numpy arrays are interactive windows on the array </span></span>
@@ -556,7 +556,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="funzioni-universali" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="funzioni-universali"><span class="header-section-number">3.3</span> 3. Funzioni Universali</h2>
+<h2 data-number="3.3" class="anchored" data-anchor-id="funzioni-universali"><span class="header-section-number">3.3</span> Funzioni Universali</h2>
 <p>Le funzioni universali sono particolati funzioni che applicano operazioni elemento per elemento ad un array numpy. Si dividono in: 1. operazioni <strong>unarie</strong>: prendono un input due array e ne ritornano uno come risultato, 2. operazioni <strong>binarie</strong>: prendono due input due array e ne ritornano uno come risultato, del quale ogni elemento corrisponde all risultato dell’operazione applicata agli elementi con lo stesso indice nei due array input.</p>
 <div id="b06a91c6-5d08-4826-9a25-a9f93199b26b" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># unary functions </span></span>
@@ -600,7 +600,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Una lista completa di tutte le funzioni universali puo essere trovata nella <a href="https://numpy.org/devdocs/reference/ufuncs.html#available-ufuncs">documentazione</a> di numpy</p>
 </section>
 <section id="programmazione-orientata-agli-array" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="programmazione-orientata-agli-array"><span class="header-section-number">3.4</span> 4. Programmazione orientata agli array</h2>
+<h2 data-number="3.4" class="anchored" data-anchor-id="programmazione-orientata-agli-array"><span class="header-section-number">3.4</span> Programmazione orientata agli array</h2>
 <p>Programmare avendo gli array come mattoncini principali permette di ottenere molto vantaggi. Primo fra tutti, programmare in queso modo permette di ottenere un codice molto piu veloce di quello normale. Inoltre, di per se, qualsiasi libreria piu avanzata da per scontato questa tipologia di programmazione, che prende il nome di programmazione <strong>vettorizzata</strong>.</p>
 <div id="d04a08a8" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>points <span class="op">=</span> np.arange(<span class="op">-</span><span class="dv">5</span>,<span class="dv">5</span>,<span class="fl">0.01</span>) </span>
@@ -859,7 +859,7 @@ shape di mean_vec = (3,)</code></pre>
 </section>
 </section>
 <section id="metodi-per-array-booleani" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="metodi-per-array-booleani"><span class="header-section-number">3.5</span> 5. Metodi per array booleani</h2>
+<h2 data-number="3.5" class="anchored" data-anchor-id="metodi-per-array-booleani"><span class="header-section-number">3.5</span> Metodi per array booleani</h2>
 <p>In Python valori <code>True</code> e <code>False</code> sono trattati, rispettivamente, come i numerali 1 e 0</p>
 <div id="1e0cfe4b" class="cell" data-execution_count="69">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>rng.seed(<span class="dv">42</span>)</span>
