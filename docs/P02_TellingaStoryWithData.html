@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>15&nbsp; Raccontare una storia con i dati – Data Science con Python</title>
+<title>16&nbsp; Raccontare una storia con i dati – Data Science con Python</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -82,7 +82,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./P01_Preprocessing_GameZoneOrders.html">Progetti</a></li><li class="breadcrumb-item"><a href="./P02_TellingaStoryWithData.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Raccontare una storia con i dati</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./P01_Preprocessing_GameZoneOrders.html">Progetti</a></li><li class="breadcrumb-item"><a href="./P02_TellingaStoryWithData.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Raccontare una storia con i dati</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -113,7 +113,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">How to use these notes:</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Come utilizzare questi appunti:</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -208,6 +208,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Interazioni</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12_DataAggregationAndGroupOperations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Operazioni di aggregazione e raggruppamento</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -222,13 +228,13 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./P01_Preprocessing_GameZoneOrders.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Preprocessing Framework</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Preprocessing Framework</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./P02_TellingaStoryWithData.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Raccontare una storia con i dati</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Raccontare una storia con i dati</span></span></a>
   </div>
 </li>
       </ul>
@@ -243,26 +249,26 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#la-forma-delle-storie-e-dei-dati" id="toc-la-forma-delle-storie-e-dei-dati" class="nav-link active" data-scroll-target="#la-forma-delle-storie-e-dei-dati"><span class="header-section-number">15.1</span> La Forma delle Storie (e dei Dati)</a></li>
-  <li><a href="#il-metodo-il-framework-dei-5-pilastri" id="toc-il-metodo-il-framework-dei-5-pilastri" class="nav-link" data-scroll-target="#il-metodo-il-framework-dei-5-pilastri"><span class="header-section-number">15.2</span> Il Metodo: Il Framework dei 5 Pilastri</a></li>
-  <li><a href="#la-psicologia-della-visione-i-principi-della-gestalt" id="toc-la-psicologia-della-visione-i-principi-della-gestalt" class="nav-link" data-scroll-target="#la-psicologia-della-visione-i-principi-della-gestalt"><span class="header-section-number">15.3</span> La Psicologia della Visione: I Principi della Gestalt</a></li>
-  <li><a href="#lezione-di-stile-storytelling-with-data" id="toc-lezione-di-stile-storytelling-with-data" class="nav-link" data-scroll-target="#lezione-di-stile-storytelling-with-data"><span class="header-section-number">15.4</span> Lezione di Stile: “Storytelling with Data”</a></li>
-  <li><a href="#il-nostro-toolkit-tecnologico-pandas-altair-e-streamlit" id="toc-il-nostro-toolkit-tecnologico-pandas-altair-e-streamlit" class="nav-link" data-scroll-target="#il-nostro-toolkit-tecnologico-pandas-altair-e-streamlit"><span class="header-section-number">15.5</span> Il Nostro Toolkit Tecnologico: Pandas, Altair e Streamlit</a>
+  <li><a href="#la-forma-delle-storie-e-dei-dati" id="toc-la-forma-delle-storie-e-dei-dati" class="nav-link active" data-scroll-target="#la-forma-delle-storie-e-dei-dati"><span class="header-section-number">16.1</span> La Forma delle Storie (e dei Dati)</a></li>
+  <li><a href="#il-metodo-il-framework-dei-5-pilastri" id="toc-il-metodo-il-framework-dei-5-pilastri" class="nav-link" data-scroll-target="#il-metodo-il-framework-dei-5-pilastri"><span class="header-section-number">16.2</span> Il Metodo: Il Framework dei 5 Pilastri</a></li>
+  <li><a href="#la-psicologia-della-visione-i-principi-della-gestalt" id="toc-la-psicologia-della-visione-i-principi-della-gestalt" class="nav-link" data-scroll-target="#la-psicologia-della-visione-i-principi-della-gestalt"><span class="header-section-number">16.3</span> La Psicologia della Visione: I Principi della Gestalt</a></li>
+  <li><a href="#lezione-di-stile-storytelling-with-data" id="toc-lezione-di-stile-storytelling-with-data" class="nav-link" data-scroll-target="#lezione-di-stile-storytelling-with-data"><span class="header-section-number">16.4</span> Lezione di Stile: “Storytelling with Data”</a></li>
+  <li><a href="#il-nostro-toolkit-tecnologico-pandas-altair-e-streamlit" id="toc-il-nostro-toolkit-tecnologico-pandas-altair-e-streamlit" class="nav-link" data-scroll-target="#il-nostro-toolkit-tecnologico-pandas-altair-e-streamlit"><span class="header-section-number">16.5</span> Il Nostro Toolkit Tecnologico: Pandas, Altair e Streamlit</a>
   <ul class="collapse">
-  <li><a href="#pandas-la-preparazione-number" id="toc-pandas-la-preparazione-number" class="nav-link" data-scroll-target="#pandas-la-preparazione-number"><span class="header-section-number">15.5.1</span> <strong>Pandas: La Preparazione (Number)</strong></a></li>
-  <li><a href="#altair-la-visualizzazione-dichiarativa-chart-colour-label" id="toc-altair-la-visualizzazione-dichiarativa-chart-colour-label" class="nav-link" data-scroll-target="#altair-la-visualizzazione-dichiarativa-chart-colour-label"><span class="header-section-number">15.5.2</span> <strong>Altair: La Visualizzazione Dichiarativa (Chart, Colour, Label)</strong></a></li>
-  <li><a href="#streamlit-la-narrazione-story" id="toc-streamlit-la-narrazione-story" class="nav-link" data-scroll-target="#streamlit-la-narrazione-story"><span class="header-section-number">15.5.3</span> <strong>Streamlit: La Narrazione (Story)</strong></a></li>
+  <li><a href="#pandas-la-preparazione-number" id="toc-pandas-la-preparazione-number" class="nav-link" data-scroll-target="#pandas-la-preparazione-number"><span class="header-section-number">16.5.1</span> <strong>Pandas: La Preparazione (Number)</strong></a></li>
+  <li><a href="#altair-la-visualizzazione-dichiarativa-chart-colour-label" id="toc-altair-la-visualizzazione-dichiarativa-chart-colour-label" class="nav-link" data-scroll-target="#altair-la-visualizzazione-dichiarativa-chart-colour-label"><span class="header-section-number">16.5.2</span> <strong>Altair: La Visualizzazione Dichiarativa (Chart, Colour, Label)</strong></a></li>
+  <li><a href="#streamlit-la-narrazione-story" id="toc-streamlit-la-narrazione-story" class="nav-link" data-scroll-target="#streamlit-la-narrazione-story"><span class="header-section-number">16.5.3</span> <strong>Streamlit: La Narrazione (Story)</strong></a></li>
   </ul></li>
-  <li><a href="#istruzioni" id="toc-istruzioni" class="nav-link" data-scroll-target="#istruzioni"><span class="header-section-number">16</span> Istruzioni</a></li>
+  <li><a href="#istruzioni" id="toc-istruzioni" class="nav-link" data-scroll-target="#istruzioni"><span class="header-section-number">17</span> Istruzioni</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.dev/vivri161803/PythonForDataAnanlysis/blob/main/P02_TellingaStoryWithData.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/vivri161803/PythonForDataAnanlysis/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./P01_Preprocessing_GameZoneOrders.html">Progetti</a></li><li class="breadcrumb-item"><a href="./P02_TellingaStoryWithData.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Raccontare una storia con i dati</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./P01_Preprocessing_GameZoneOrders.html">Progetti</a></li><li class="breadcrumb-item"><a href="./P02_TellingaStoryWithData.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Raccontare una storia con i dati</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Raccontare una storia con i dati</span></h1>
+<h1 class="title"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Raccontare una storia con i dati</span></h1>
 </div>
 
 
@@ -279,8 +285,8 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="la-forma-delle-storie-e-dei-dati" class="level2" data-number="15.1">
-<h2 data-number="15.1" class="anchored" data-anchor-id="la-forma-delle-storie-e-dei-dati"><span class="header-section-number">15.1</span> La Forma delle Storie (e dei Dati)</h2>
+<section id="la-forma-delle-storie-e-dei-dati" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="la-forma-delle-storie-e-dei-dati"><span class="header-section-number">16.1</span> La Forma delle Storie (e dei Dati)</h2>
 <blockquote class="blockquote">
 <p><em>“Non esiste grafico senza storia, così come non esiste storia senza una forma.”</em></p>
 </blockquote>
@@ -291,8 +297,8 @@ ul.task-list li input[type="checkbox"] {
 <p>Osserva l’archetipo <em>“Man in Hole”</em> (L’uomo nei guai): il protagonista cade in una situazione difficile e ne risale migliorato. Ora, guarda un grafico finanziario: un crollo di mercato seguito da una ripresa record è esattamente un <em>“Man in Hole”</em>. Un trend costantemente negativo è un <em>“From Bad to Worse”</em>.</p>
 <p>Il tuo compito come Data Scientist non è solo stampare numeri a video, ma <strong>riconoscere quale archetipo narrativo si nasconde nel tuo dataset</strong>. Stai raccontando una tragedia (perdita di utenti) o una storia di rinascita (ottimizzazione dei costi)? Identificare la “forma” è il primo passo per scegliere come visualizzarla.</p>
 </section>
-<section id="il-metodo-il-framework-dei-5-pilastri" class="level2" data-number="15.2">
-<h2 data-number="15.2" class="anchored" data-anchor-id="il-metodo-il-framework-dei-5-pilastri"><span class="header-section-number">15.2</span> Il Metodo: Il Framework dei 5 Pilastri</h2>
+<section id="il-metodo-il-framework-dei-5-pilastri" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="il-metodo-il-framework-dei-5-pilastri"><span class="header-section-number">16.2</span> Il Metodo: Il Framework dei 5 Pilastri</h2>
 <p>Una volta intuita la storia, non puoi affidarti al caso. Per trasformare un’intuizione in una visualizzazione efficace, utilizzerai il framework visivo che ci guida nella strutturazione del messaggio.</p>
 <center>
 <img src="./images/5pilars.jpg" width="500">
@@ -305,8 +311,8 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Label (Etichetta):</strong> Un grafico senza annotazioni è muto. Le etichette e i titoli devono spiegare <em>perché</em> quel dato è importante, non solo <em>cos’è</em>.</li>
 </ol>
 </section>
-<section id="la-psicologia-della-visione-i-principi-della-gestalt" class="level2" data-number="15.3">
-<h2 data-number="15.3" class="anchored" data-anchor-id="la-psicologia-della-visione-i-principi-della-gestalt"><span class="header-section-number">15.3</span> La Psicologia della Visione: I Principi della Gestalt</h2>
+<section id="la-psicologia-della-visione-i-principi-della-gestalt" class="level2" data-number="16.3">
+<h2 data-number="16.3" class="anchored" data-anchor-id="la-psicologia-della-visione-i-principi-della-gestalt"><span class="header-section-number">16.3</span> La Psicologia della Visione: I Principi della Gestalt</h2>
 <p>Per applicare correttamente i pilastri “Chart” e “Colour”, devi capire come il cervello del tuo utente elabora le informazioni. La nostra mente cerca ordine nel caos. Sfrutteremo i principi della Gestalt per ridurre il carico cognitivo delle tue dashboard:</p>
 <center>
 <img src="./images/unnamed.jpg" width="500">
@@ -319,8 +325,8 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Connessione:</strong> Elementi collegati fisicamente sono percepiti come relazionati. <strong>Applicazione:</strong> Ecco perché i grafici a linee sono superiori ai punti dispersi per mostrare i trend; la linea fisica guida la comprensione dell’evoluzione temporale.</li>
 </ul>
 </section>
-<section id="lezione-di-stile-storytelling-with-data" class="level2" data-number="15.4">
-<h2 data-number="15.4" class="anchored" data-anchor-id="lezione-di-stile-storytelling-with-data"><span class="header-section-number">15.4</span> Lezione di Stile: “Storytelling with Data”</h2>
+<section id="lezione-di-stile-storytelling-with-data" class="level2" data-number="16.4">
+<h2 data-number="16.4" class="anchored" data-anchor-id="lezione-di-stile-storytelling-with-data"><span class="header-section-number">16.4</span> Lezione di Stile: “Storytelling with Data”</h2>
 <p>Facendo eco al lavoro fondamentale di Cole Nussbaumer Knaflic, adotteremo una filosofia minimalista ed essenziale.</p>
 <ul>
 <li><strong>Elimina il “Clutter” (Disordine):</strong> Se non aggiunge valore informativo, toglilo. Griglie di sfondo pesanti? Via. Effetti 3D? Assolutamente vietati. Bordi inutili? Cancellali. Ogni pixel deve avere uno scopo.</li>
@@ -328,33 +334,33 @@ ul.task-list li input[type="checkbox"] {
 <li><strong>Titoli d’Azione:</strong> Non scrivere “Vendite per Regione”. Scrivi: “La Lombardia guida le vendite nel Q4”. Spiega il dato nel titolo stesso.</li>
 </ul>
 </section>
-<section id="il-nostro-toolkit-tecnologico-pandas-altair-e-streamlit" class="level2" data-number="15.5">
-<h2 data-number="15.5" class="anchored" data-anchor-id="il-nostro-toolkit-tecnologico-pandas-altair-e-streamlit"><span class="header-section-number">15.5</span> Il Nostro Toolkit Tecnologico: Pandas, Altair e Streamlit</h2>
+<section id="il-nostro-toolkit-tecnologico-pandas-altair-e-streamlit" class="level2" data-number="16.5">
+<h2 data-number="16.5" class="anchored" data-anchor-id="il-nostro-toolkit-tecnologico-pandas-altair-e-streamlit"><span class="header-section-number">16.5</span> Il Nostro Toolkit Tecnologico: Pandas, Altair e Streamlit</h2>
 <p>Tutta questa teoria sarebbe inutile senza gli strumenti per realizzarla. Nel nostro progetto pratico, costruiremo una Web App interattiva utilizzando tre librerie Python fondamentali, ognuna con un ruolo specifico nel nostro framework narrativo.</p>
-<section id="pandas-la-preparazione-number" class="level3" data-number="15.5.1">
-<h3 data-number="15.5.1" class="anchored" data-anchor-id="pandas-la-preparazione-number"><span class="header-section-number">15.5.1</span> <strong>Pandas: La Preparazione (Number)</strong></h3>
+<section id="pandas-la-preparazione-number" class="level3" data-number="16.5.1">
+<h3 data-number="16.5.1" class="anchored" data-anchor-id="pandas-la-preparazione-number"><span class="header-section-number">16.5.1</span> <strong>Pandas: La Preparazione (Number)</strong></h3>
 <center style="background-color: #f0f0f0; padding: 10px;">
 <img src="./images/pandas_Icon.png" width="250">
 </center>
 <p>Pandas sarà il nostro motore di manipolazione dati. Prima di visualizzare, dobbiamo pulire. Userai Pandas per: * Filtrare il rumore e isolare i dati rilevanti. * Aggregare i numeri per trovare i pattern (la “forma” di Vonnegut). * Garantire che i formati (date, valute) siano corretti. * <em>In sintesi:</em> Pandas gestisce la verità del dato.</p>
 </section>
-<section id="altair-la-visualizzazione-dichiarativa-chart-colour-label" class="level3" data-number="15.5.2">
-<h3 data-number="15.5.2" class="anchored" data-anchor-id="altair-la-visualizzazione-dichiarativa-chart-colour-label"><span class="header-section-number">15.5.2</span> <strong>Altair: La Visualizzazione Dichiarativa (Chart, Colour, Label)</strong></h3>
+<section id="altair-la-visualizzazione-dichiarativa-chart-colour-label" class="level3" data-number="16.5.2">
+<h3 data-number="16.5.2" class="anchored" data-anchor-id="altair-la-visualizzazione-dichiarativa-chart-colour-label"><span class="header-section-number">16.5.2</span> <strong>Altair: La Visualizzazione Dichiarativa (Chart, Colour, Label)</strong></h3>
 <center style="background-color: #f0f0f0; padding: 10px;">
 <img src="./images/altair-logo-light.png" width="100">
 </center>
 <p>A differenza di altre librerie, Altair si basa sulla “Grammatica della Grafica”. È perfetta per il nostro scopo perché ti costringe a mappare le proprietà dei dati (colonne del DataFrame) alle proprietà visive (assi, colori, dimensioni) in modo logico. * Creerai grafici interattivi e puliti di default. * Applicherai i principi della Gestalt facilmente, definendo scale di colori e raggruppamenti con poche righe di codice. * <em>In sintesi:</em> Altair è la penna con cui disegneremo la nostra storia.</p>
 </section>
-<section id="streamlit-la-narrazione-story" class="level3" data-number="15.5.3">
-<h3 data-number="15.5.3" class="anchored" data-anchor-id="streamlit-la-narrazione-story"><span class="header-section-number">15.5.3</span> <strong>Streamlit: La Narrazione (Story)</strong></h3>
+<section id="streamlit-la-narrazione-story" class="level3" data-number="16.5.3">
+<h3 data-number="16.5.3" class="anchored" data-anchor-id="streamlit-la-narrazione-story"><span class="header-section-number">16.5.3</span> <strong>Streamlit: La Narrazione (Story)</strong></h3>
 <center style="background-color: #f0f0f0; padding: 10px;">
 <img src="./images/streamlit-logo-secondary-colormark-darktext.png" width="200">
 </center>
 <p>Streamlit ci permette di trasformare script Python in vere Web App. Sarà il contenitore della nostra storia. * Ci permetterà di strutturare la pagina con titoli, testo esplicativo e layout a colonne (Prossimità). * Renderà la dashboard interattiva: l’utente potrà filtrare i dati ed esplorare la storia autonomamente. * <em>In sintesi:</em> Streamlit è il libro o lo schermo su cui l’utente leggerà la tua opera.</p>
 </section>
 </section>
-<section id="istruzioni" class="level1" data-number="16">
-<h1 data-number="16"><span class="header-section-number">16</span> Istruzioni</h1>
+<section id="istruzioni" class="level1" data-number="17">
+<h1 data-number="17"><span class="header-section-number">17</span> Istruzioni</h1>
 <p>Nella repository si trova una serie di file il cui nome inizia per P02. Questi file contengono il codice utilizzato per generare una web app basilare contenente una dashboard.</p>
 <p>Il vostro compito e quello di implementare la vostra dashboard, creando: 1. Quattro grafici differenti non interattivi con <em>Altair</em> 2. Quattro grafici differenti interattivi con <em>Altair</em> 3. Inventarsi una storia da collegare ai grafici (Story-driven data analysis)</p>
 <p>Una volta che avete creato questi grafici, fornire il codice al docente, che provvedera ad inserirlo all’interno dal file <code>InClassApp.py</code> di questa repository.</p>
@@ -766,7 +772,7 @@ ul.task-list li input[type="checkbox"] {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./P01_Preprocessing_GameZoneOrders.html" class="pagination-link" aria-label="Preprocessing Framework">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Preprocessing Framework</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Preprocessing Framework</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

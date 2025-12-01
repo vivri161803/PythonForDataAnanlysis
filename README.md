@@ -1,26 +1,51 @@
-# How to use these notes:
-1. Activate the virtual enviroment (in terminal): source .venv/bin/activate
-2. Activate the jupyter notebook: jupyter notebook
-3. Deactivate the notebook: from the UI 
-4. Deactivate the virtual enviroment (in terminal): deactivate
+# Come utilizzare questi appunti:
+1. Attiva l'ambiente virtuale (nel terminale): source .venv/bin/activate
+2. Attiva il jupyter notebook: jupyter notebook
+3. Disattiva il notebook: dall'interfaccia utente (UI)
+4. Disattiva l'ambiente virtuale (nel terminale): deactivate
 
 
-## What do we talk about? 
-The notes you will find in this repository offer an introductory course on using Python for data analysis. 
-The book *Python for Data Analysis* by Wes McKinney has been used as main source. 
+## Di cosa parliamo? 
+Gli appunti che troverai in questa repository offrono un corso introduttivo sull'utilizzo di Python per l'analisi dei dati.
+Il libro *Python for Data Analysis* di Wes McKinney è stato utilizzato come fonte principale. Tuttavia anche altri testi di riferimento sono stati preziosi. 
 
-![alt text](images/BookCover.png)
+<table>
+  <tr>
+    <td align="center">
+      <img src="images/BookCover.png" width="300px" />
+      <br />
+    </td>
+    <td align="center">
+      <img src="images/BookCover2.jpg" width="300px" />
+      <br />
+    </td>
+    <td align="center">
+      <img src="images/BookCover3.jpg" width="300px" />
+      <br />
+    </td>
+  </tr>
+</table>
 
----
+Rimando anche alla documentazione delle verie librerie utilizzate nei Notebook: 
 
-# Guide to Chapters Content 
-0. **Python Tips and Tricks**: some tips, tricks and utilities of Python are shown. This one is an introductory chapter to make sure that we are on the same page
-1. **Numpy Introduction and Vectorized Computations**: in this chapter we give an elementary intrducrion to NumPy. Topics like arrays, slicing, filtering and unversal functions are covered
-2. **Pandas Introduction**: in this chapter a basic introduction to *pandas* is provided. There is also a simple example on time-series.
-3. **Data Wrangling**: preparing data for analysis
-4. **Plotting and Visualization**: leveraging _matplotlib_ for data visualization
+- [pandas](https://pandas.pydata.org/docs/)
+- [numpy](https://numpy.org/doc/)
+- [streamlit](https://docs.streamlit.io/)
+- [Altair](https://altair-viz.github.io/)
+- [Matplotlib](https://matplotlib.org/stable/index.html)
+- [ScikitLearn](https://scikit-learn.org/stable/)
+- [Seaborne](https://seaborn.pydata.org/)
+
+
+# Guida ai Contenuti dei Capitoli 
+0. **Consigli e Trucchi Python**: vengono mostrati alcuni consigli, trucchi e utilità di Python. Questo è un capitolo introduttivo per assicurarci di essere tutti allineati.
+1. **Introduzione a Numpy e Calcoli Vettorializzati**: in questo capitolo forniamo un'introduzione elementare a NumPy. Vengono trattati argomenti come array, slicing, filtraggio e funzioni universali.
+2. **Introduzione a Pandas**: in questo capitolo viene fornita un'introduzione di base a *pandas*. C'è anche un semplice esempio sulle serie temporali.
+3. **Data Wrangling**: preparazione dei dati per l'analisi.
+4. **Grafici e Visualizzazione**: sfruttare _matplotlib_ per la visualizzazione dei dati.
 5. **Altair**
-   - **Introduzione**: _Vega Altair_ in a nutshell
-   - **Typer, Marks, Channels**: main building blocks of _Altair_ 
-   - **Trasformazioni sui dati**: transforming data with _Altair_ for straight-to-the-point visuals
-   - **Axes, Scales and Legends**: unsang heroes of visualization
+   - **Introduzione**: _Vega Altair_ in sintesi.
+   - **Types, Marks, Channels**: i principali blocchi costitutivi di _Altair_.
+   - **Trasformazioni sui dati**: trasformare i dati con _Altair_ per visualizzazioni dirette ed efficaci.
+   - **Axes, Scales and Legends**: gli eroi silenziosi della visualizzazione.
+ 6. **Operazioni di Aggregazione e Raggruppamento**: introduzione ai metodi `crosstab()`, `pivot_table()`, `groupby()` ed `apply()` in un'ottica di operazioni di aggregazione dati.

@@ -25,6 +25,7 @@ book:
         - 09_Altair_AxesScalesLegends.ipynb
         - 10_Altair_MultiViewComposition.ipynb
         - 11_Altair_InteractionsWalkthrough.ipynb
+        - 12_DataAggregationAndGroupOperations.ipynb
     - part: "Progetti"
       chapters:
         - P01_Preprocessing_GameZoneOrders.ipynb
