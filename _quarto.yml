@@ -1,0 +1,31 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "Data Science con Python"
+  author: "Carlo Bianchi" 
+  repo-url: https://github.com/vivri161803/PythonForDataAnanlysis
+  repo-actions: [edit, issue]
+  chapters:
+    - index.md
+    - part: "Fondamenti"
+      chapters:
+        - 00_PythonTipsAndTricks.ipynb
+        - 01_NumpyIntroduction_VectorizedComputations.ipynb
+        - 02_PandasIntroduction.ipynb
+        - 03_DataCleaningAndPreparation.ipynb
+        - 04_DataWrangling.ipynb
+    - part: "Visualizzazione"
+      chapters:
+        - 05_PlottingAndVisualization.ipynb
+        - 06_IntroduzioneAltair.ipynb
+        - 07_ Altair_TypesMarksChannels.ipynb
+        - 08_Altair_TrasformazioniSuiDati.ipynb
+        - 09_Altair_AxesScalesLegends.ipynb
+        - 10_Altair_MultiViewComposition.ipynb
+        - 11_Altair_InteractionsWalkthrough.ipynb
+    - part: "Progetti"
+      chapters:
+        - P01_Preprocessing_GameZoneOrders.ipynb
+        - P02_TellingaStoryWithData.ipynb

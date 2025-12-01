@@ -1,0 +1,2034 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>13&nbsp; Interazioni – Data Science con Python</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./P01_Preprocessing_GameZoneOrders.html" rel="next">
+<link href="./10_Altair_MultiViewComposition.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-6e4966e5692096c2ad4547581fd6ae89.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05_PlottingAndVisualization.html">Visualizzazione</a></li><li class="breadcrumb-item"><a href="./11_Altair_InteractionsWalkthrough.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Interazioni</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Science con Python</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/vivri161803/PythonForDataAnanlysis" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">How to use these notes:</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Fondamenti</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00_PythonTipsAndTricks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Python tips and tricks</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_NumpyIntroduction_VectorizedComputations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduzione alla computazione vettorizzata</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_PandasIntroduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Introduzione a Pandas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_DataCleaningAndPreparation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data Cleaning and Preparation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_DataWrangling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Wrangling</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Visualizzazione</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_PlottingAndVisualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Realizzazione di Grafici e Visualizzazione dei Dati</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_IntroduzioneAltair.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Introduzione ad Altair</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07_ Altair_TypesMarksChannels.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Data Types, Graphical Marks, and Visual Encoding Channels</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_Altair_TrasformazioniSuiDati.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Trasformazioni sui dati</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09_Altair_AxesScalesLegends.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Assi, Scale e Legende</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10_Altair_MultiViewComposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Composizione Multipla</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11_Altair_InteractionsWalkthrough.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Interazioni</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Progetti</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P01_Preprocessing_GameZoneOrders.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Preprocessing Framework</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P02_TellingaStoryWithData.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Raccontare una storia con i dati</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#altair-selection" id="toc-altair-selection" class="nav-link active" data-scroll-target="#altair-selection"><span class="header-section-number">13.1</span> 🍒 <em>Altair selection</em></a></li>
+  <li><a href="#query-dinamiche" id="toc-query-dinamiche" class="nav-link" data-scroll-target="#query-dinamiche"><span class="header-section-number">13.2</span> 🧹 Query Dinamiche</a>
+  <ul class="collapse">
+  <li><a href="#cross-filtering" id="toc-cross-filtering" class="nav-link" data-scroll-target="#cross-filtering"><span class="header-section-number">13.2.1</span> Cross-filtering</a></li>
+  </ul></li>
+  <li><a href="#panning-zooming" id="toc-panning-zooming" class="nav-link" data-scroll-target="#panning-zooming"><span class="header-section-number">13.3</span> 🔍 Panning &amp; Zooming</a>
+  <ul class="collapse">
+  <li><a href="#overview-e-zoom" id="toc-overview-e-zoom" class="nav-link" data-scroll-target="#overview-e-zoom"><span class="header-section-number">13.3.1</span> Overview e Zoom</a></li>
+  </ul></li>
+  <li><a href="#details-on-demand" id="toc-details-on-demand" class="nav-link" data-scroll-target="#details-on-demand"><span class="header-section-number">13.4</span> 🎛️ Details on-demand</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.dev/vivri161803/PythonForDataAnanlysis/blob/main/11_Altair_InteractionsWalkthrough.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/vivri161803/PythonForDataAnanlysis/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./05_PlottingAndVisualization.html">Visualizzazione</a></li><li class="breadcrumb-item"><a href="./11_Altair_InteractionsWalkthrough.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Interazioni</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Interazioni</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<blockquote class="blockquote">
+<p><em>Un grafico non viene ‘disegnato’ una volta per tutte; viene ‘costruito’ e ricostruito finché non rivela tutte le relazioni costituite dall’interazione dei dati. Le migliori operazioni grafiche sono quelle eseguite dal decisore stesso</em> — Jacques Bertin</p>
+</blockquote>
+<p><img src="images/bertin.png" width="500"></p>
+<p>La visualizzazione fornisce un potente mezzo per dare un senso ai dati. Una singola immagine, tuttavia, in genere fornisce risposte, nella migliore delle ipotesi, a una manciata di domande. Attraverso l’interazione possiamo trasformare immagini statiche in strumenti di esplorazione: evidenziando punti di interesse, ingrandendo per rivelare modelli più dettagliati e collegando più viste per ragionare sulle relazioni multidimensionali.</p>
+<p>Al centro dell’interazione c’è il concetto di <strong>selezione</strong>: un mezzo per indicare al computer quali elementi o regioni ci interessano. Ad esempio, potremmo passare il mouse su un punto, cliccare su più indicatori o disegnare un riquadro di delimitazione attorno a una regione per evidenziare sottoinsiemi di dati per un’ulteriore analisi.</p>
+<p>Oltre alle codifiche visive e alle trasformazioni dei dati, <em>Altair</em> fornisce <strong>un’astrazione di selezione</strong> per la creazione di interazioni. Queste selezioni comprendono tre aspetti: 1. Gestione degli <strong>eventi di input</strong> per selezionare punti o regioni di interesse, come eventi di passaggio del mouse, clic, trascinamento, scorrimento e tocco. 2. Generalizzazione dall’input per formare una <strong>regola di selezione</strong> (o predicato) che determina se un dato record di dati rientra o meno nella selezione. 3. Utilizzo del <strong>predicato di selezione</strong> per configurare dinamicamente una visualizzazione tramite codifiche condizionali, trasformazioni di filtro o domini di scala.</p>
+<p>Questo notebook introduce le selezioni interattive (<strong>selection</strong>) e spiega come utilizzarle per creare una varietà di tecniche di interazione, come: 1. query dinamiche, 2. <em>Panning&amp;Zoom</em>, 3. <em>Details on Demand</em>, 4. <em>brushing&amp;linking</em>.</p>
+<div id="03a85f95" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> altair <span class="im">as</span> alt</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Visualizzeremo una varietà di set di dati dalla raccolta vega-datasets: 1. Un set di dati di auto degli anni ’70 e dei primi anni ’80, 2. Un set di dati di film, precedentemente utilizzato nel notebook Data Transformation, 3. Un set di dati contenente dieci anni di prezzi delle azioni dell’indice S&amp;P 500 (sp500), 4. Un set di dati di azioni di società tecnologiche e 5. Un set di dati di voli, inclusi orario di partenza, distanza e ritardo all’arrivo.</p>
+<div id="d5d3d92c" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>cars <span class="op">=</span> <span class="st">'https://cdn.jsdelivr.net/npm/vega-datasets@1/data/cars.json'</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>movies <span class="op">=</span> <span class="st">'https://cdn.jsdelivr.net/npm/vega-datasets@1/data/movies.json'</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>sp500 <span class="op">=</span> <span class="st">'https://cdn.jsdelivr.net/npm/vega-datasets@1/data/sp500.csv'</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>stocks <span class="op">=</span> <span class="st">'https://cdn.jsdelivr.net/npm/vega-datasets@1/data/stocks.csv'</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>flights <span class="op">=</span> <span class="st">'https://cdn.jsdelivr.net/npm/vega-datasets@1/data/flights-5k.json'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="altair-selection" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="altair-selection"><span class="header-section-number">13.1</span> 🍒 <em>Altair selection</em></h2>
+<p>La <em>selection</em> in <em>Altair</em> permette di costruire un punto fra input dell’utente e selezione di specifiche parti del grafico, in maniera tale da poterle visualizzare in maniera diversa. Le due categorie fondamentali di <em>selection</em> vengono distinte per numero di elementi individuati dalla selezione: - <strong>uno</strong> - <strong>piu di uno</strong></p>
+<p>Inoltre la selezione effettuata puo essere: - <strong>statica</strong> - <strong>dinamica</strong></p>
+<p>Per prima cosa affrontiamo la selezione singola, che viene implementata in <em>Altair</em> con <code>selection_point</code>. Questa funzione: 1. identifica quali punti del grafico sono stati oggetto di interazione con l’utente 2. li evidenzia con una colonna aggiuntiva booleana aggiunta al dataset</p>
+<p>Possiamo quindi utilizzare questa colonna per eventuali codifiche su <em>encoding channels</em> per campi non-numerici, come il colore o la forma.</p>
+<blockquote class="blockquote">
+<p><strong>NOTA</strong></p>
+<p>La spiegazione del funzionamento del codice realativo alle funzioni di questa sezione e intuitivo e non preciso.</p>
+</blockquote>
+<div id="409925be" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>selection <span class="op">=</span> alt.selection_point()<span class="op">;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>alt.Chart(cars).mark_circle().add_params(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    selection <span class="co"># aggiunta della colonna di selezione al dataset </span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>).encode(</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'Horsepower:Q'</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'Miles_per_Gallon:Q'</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span>alt.condition(selection, <span class="st">'Cylinders:O'</span>, alt.value(<span class="st">'grey'</span>)),</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    opacity<span class="op">=</span>alt.condition(selection, alt.value(<span class="fl">0.8</span>), alt.value(<span class="fl">0.1</span>))</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+
+<style>
+  #altair-viz-eb588c2ccd864411841ce62612c39737.vega-embed {
+    width: 100%;
+    display: flex;
+  }
+
+  #altair-viz-eb588c2ccd864411841ce62612c39737.vega-embed details,
+  #altair-viz-eb588c2ccd864411841ce62612c39737.vega-embed details summary {
+    position: relative;
+  }
+</style>
+<div id="altair-viz-eb588c2ccd864411841ce62612c39737"></div>
+<script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-eb588c2ccd864411841ce62612c39737") {
+      outputDiv = document.getElementById("altair-viz-eb588c2ccd864411841ce62612c39737");
+    }
+
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm/vega@6?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm/vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm/vega-lite@6.1.0?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm/vega-embed@7?noext",
+    };
+
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      let deps = ["vega-embed"];
+      require(deps, displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else {
+      maybeLoadScript("vega", "6")
+        .then(() => maybeLoadScript("vega-lite", "6.1.0"))
+        .then(() => maybeLoadScript("vega-embed", "7"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/cars.json"}, "mark": {"type": "circle"}, "encoding": {"color": {"condition": {"param": "param_e4a496766298965a", "field": "Cylinders", "type": "ordinal"}, "value": "grey"}, "opacity": {"condition": {"param": "param_e4a496766298965a", "value": 0.8}, "value": 0.1}, "x": {"field": "Horsepower", "type": "quantitative"}, "y": {"field": "Miles_per_Gallon", "type": "quantitative"}}, "params": [{"name": "param_e4a496766298965a", "select": {"type": "point"}}], "$schema": "https://vega.github.io/schema/vega-lite/v6.1.0.json"}, {"mode": "vega-lite"});
+</script>
+</div>
+</div>
+<p>In questo caso i punti del grafico selezionati vengono colorati in base al campo <code>Cylinders</code>, tutti lgi altri vengono colorati con un grigio di default. Stessa cosa vale per il canale <code>opacity</code>. Se non si interagisce sul grafico o si seleziona uno spazio vuoto, otteniamo la selezione nulla, che applica la condizione a tutti i punti del grafico,</p>
+<p>L’operazione <code>selection_point</code> permette di selezionare un punto alla volta, tuttavia esistono altri 2 tipi di interazione che permettono di: - selezionare piu punti (<code>selection_multi</code>), funzione ormai deprecata, - selezionare un’area del grafico ed i punti al suo interno (<code>selection_interval</code>).</p>
+<div id="19e8d18e" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># utility function </span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot(selection):</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> alt.Chart(cars).mark_circle().add_params(</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        selection</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    ).encode(</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span><span class="st">'Horsepower:Q'</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        y<span class="op">=</span><span class="st">'Miles_per_Gallon:Q'</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        color<span class="op">=</span>alt.condition(selection, <span class="st">'Cylinders:O'</span>, alt.value(<span class="st">'grey'</span>)),</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        opacity<span class="op">=</span>alt.condition(selection, alt.value(<span class="fl">0.8</span>), alt.value(<span class="fl">0.1</span>))</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    ).properties(</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        width<span class="op">=</span><span class="dv">240</span>,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        height<span class="op">=</span><span class="dv">180</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="9b90d375" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>alt.hconcat(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  plot(alt.selection_point()).properties(title<span class="op">=</span><span class="st">'Single (Click)'</span>),</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  plot(alt.selection_interval()).properties(title<span class="op">=</span><span class="st">'Interval (Drag)'</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+
+<style>
+  #altair-viz-f8e322c411594ac6bf82ae4085734500.vega-embed {
+    width: 100%;
+    display: flex;
+  }
+
+  #altair-viz-f8e322c411594ac6bf82ae4085734500.vega-embed details,
+  #altair-viz-f8e322c411594ac6bf82ae4085734500.vega-embed details summary {
+    position: relative;
+  }
+</style>
+<div id="altair-viz-f8e322c411594ac6bf82ae4085734500"></div>
+<script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-f8e322c411594ac6bf82ae4085734500") {
+      outputDiv = document.getElementById("altair-viz-f8e322c411594ac6bf82ae4085734500");
+    }
+
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm/vega@6?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm/vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm/vega-lite@6.1.0?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm/vega-embed@7?noext",
+    };
+
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      let deps = ["vega-embed"];
+      require(deps, displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else {
+      maybeLoadScript("vega", "6")
+        .then(() => maybeLoadScript("vega-lite", "6.1.0"))
+        .then(() => maybeLoadScript("vega-embed", "7"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "hconcat": [{"mark": {"type": "circle"}, "encoding": {"color": {"condition": {"param": "param_e4a496766298965a", "field": "Cylinders", "type": "ordinal"}, "value": "grey"}, "opacity": {"condition": {"param": "param_e4a496766298965a", "value": 0.8}, "value": 0.1}, "x": {"field": "Horsepower", "type": "quantitative"}, "y": {"field": "Miles_per_Gallon", "type": "quantitative"}}, "height": 180, "name": "view_f61b6a27616c1001_0", "title": "Single (Click)", "width": 240}, {"mark": {"type": "circle"}, "encoding": {"color": {"condition": {"param": "param_54dd647193d9b3b3", "field": "Cylinders", "type": "ordinal"}, "value": "grey"}, "opacity": {"condition": {"param": "param_54dd647193d9b3b3", "value": 0.8}, "value": 0.1}, "x": {"field": "Horsepower", "type": "quantitative"}, "y": {"field": "Miles_per_Gallon", "type": "quantitative"}}, "height": 180, "name": "view_2a3d4633f4a84cde_1", "title": "Interval (Drag)", "width": 240}], "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/cars.json"}, "params": [{"name": "param_e4a496766298965a", "select": {"type": "point"}, "views": ["view_f61b6a27616c1001_0"]}, {"name": "param_54dd647193d9b3b3", "select": {"type": "interval"}, "views": ["view_2a3d4633f4a84cde_1"]}], "$schema": "https://vega.github.io/schema/vega-lite/v6.1.0.json"}, {"mode": "vega-lite"});
+</script>
+</div>
+</div>
+<div id="9e5e7f72" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>plot(alt.selection_point(on <span class="op">=</span> <span class="st">'mouseover'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+
+<style>
+  #altair-viz-206bcd4510b34ab0b7f654de67a2ff4d.vega-embed {
+    width: 100%;
+    display: flex;
+  }
+
+  #altair-viz-206bcd4510b34ab0b7f654de67a2ff4d.vega-embed details,
+  #altair-viz-206bcd4510b34ab0b7f654de67a2ff4d.vega-embed details summary {
+    position: relative;
+  }
+</style>
+<div id="altair-viz-206bcd4510b34ab0b7f654de67a2ff4d"></div>
+<script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-206bcd4510b34ab0b7f654de67a2ff4d") {
+      outputDiv = document.getElementById("altair-viz-206bcd4510b34ab0b7f654de67a2ff4d");
+    }
+
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm/vega@6?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm/vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm/vega-lite@6.1.0?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm/vega-embed@7?noext",
+    };
+
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      let deps = ["vega-embed"];
+      require(deps, displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else {
+      maybeLoadScript("vega", "6")
+        .then(() => maybeLoadScript("vega-lite", "6.1.0"))
+        .then(() => maybeLoadScript("vega-embed", "7"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/cars.json"}, "mark": {"type": "circle"}, "encoding": {"color": {"condition": {"param": "param_8e493a008513abe8", "field": "Cylinders", "type": "ordinal"}, "value": "grey"}, "opacity": {"condition": {"param": "param_8e493a008513abe8", "value": 0.8}, "value": 0.1}, "x": {"field": "Horsepower", "type": "quantitative"}, "y": {"field": "Miles_per_Gallon", "type": "quantitative"}}, "height": 180, "params": [{"name": "param_8e493a008513abe8", "select": {"type": "point", "on": "mouseover"}}], "width": 240, "$schema": "https://vega.github.io/schema/vega-lite/v6.1.0.json"}, {"mode": "vega-lite"});
+</script>
+</div>
+</div>
+</section>
+<section id="query-dinamiche" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="query-dinamiche"><span class="header-section-number">13.2</span> 🧹 Query Dinamiche</h2>
+<p>Le query dinamiche consentono un’esplorazione rapida e reversibile dei dati per isolare i pattern di interesse. Come definito da Ahlberg, Williamson e Shneiderman, una query dinamica: 1. rappresenta graficamente una query, 2. fornisce limiti visibili all’intervallo di query, 3. fornisce una rappresentazione grafica dei dati e del risultato della query, 4. fornisce un feedback immediato del risultato dopo ogni modifica alla query, 5. e consente agli utenti inesperti di iniziare a lavorare con una formazione minima.</p>
+<p>Costruiamo un grafico a dispersione interattivo che utilizzi una query dinamica per filtrare la visualizzazione. Dato un grafico a dispersione delle valutazioni dei film (da Rotten Tomatoes e IMDB), possiamo aggiungere una selezione sul campo <code>Major_Genre</code> per abilitare il filtro interattivo per genere cinematografico.</p>
+<div id="a8dd95aa" class="cell" data-execution_count="35">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_json(movies) <span class="co"># load movies data</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>genres <span class="op">=</span> df[<span class="st">'Major_Genre'</span>].unique() <span class="co"># get unique field values</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>genres <span class="op">=</span> <span class="bu">list</span>(<span class="bu">filter</span>(<span class="kw">lambda</span> d: d <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>, genres)) <span class="co"># filter out None values</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>genres.sort() <span class="co"># sort alphabetically</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>genres</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="35">
+<pre><code>['Action',
+ 'Adventure',
+ 'Black Comedy',
+ 'Comedy',
+ 'Concert/Performance',
+ 'Documentary',
+ 'Drama',
+ 'Horror',
+ 'Musical',
+ 'Romantic Comedy',
+ 'Thriller/Suspense',
+ 'Western']</code></pre>
+</div>
+</div>
+<div id="5240f137" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># MPA rating values</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>mpaa <span class="op">=</span> [<span class="st">'G'</span>, <span class="st">'PG'</span>, <span class="st">'PG-13'</span>, <span class="st">'R'</span>, <span class="st">'NC-17'</span>, <span class="st">'Not Rated'</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="06a64f22" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>selectGenre <span class="op">=</span> alt.selection_point(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    name<span class="op">=</span><span class="st">'Select'</span>, <span class="co"># name the selection 'Select'</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    fields<span class="op">=</span>[<span class="st">'Major_Genre'</span>], <span class="co"># limit selection to the Major_Genre field</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    value<span class="op">=</span>[{<span class="st">'Major_Genre'</span>: genres[<span class="dv">0</span>]}], <span class="co"># use first genre entry as initial selected value </span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    bind<span class="op">=</span>alt.binding_select(options<span class="op">=</span><span class="bu">list</span>(genres)) <span class="co"># bind to a menu of unique genre values</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>alt.Chart(movies).mark_circle().add_params(</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    selectGenre</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>).encode(</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'Rotten_Tomatoes_Rating:Q'</span>,</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'IMDB_Rating:Q'</span>,</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    tooltip<span class="op">=</span><span class="st">'Title:N'</span>,</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    opacity<span class="op">=</span>alt.condition(selectGenre, alt.value(<span class="fl">0.75</span>), alt.value(<span class="fl">0.05</span>)),</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    color <span class="op">=</span> alt.condition(selectGenre, <span class="st">'Major_Genre:N'</span>, alt.value(<span class="st">'grey'</span>))</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="38">
+
+<style>
+  #altair-viz-dfdba19d0ccf4e939afbd9cb4b623e13.vega-embed {
+    width: 100%;
+    display: flex;
+  }
+
+  #altair-viz-dfdba19d0ccf4e939afbd9cb4b623e13.vega-embed details,
+  #altair-viz-dfdba19d0ccf4e939afbd9cb4b623e13.vega-embed details summary {
+    position: relative;
+  }
+</style>
+<div id="altair-viz-dfdba19d0ccf4e939afbd9cb4b623e13"></div>
+<script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-dfdba19d0ccf4e939afbd9cb4b623e13") {
+      outputDiv = document.getElementById("altair-viz-dfdba19d0ccf4e939afbd9cb4b623e13");
+    }
+
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm/vega@6?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm/vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm/vega-lite@6.1.0?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm/vega-embed@7?noext",
+    };
+
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      let deps = ["vega-embed"];
+      require(deps, displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else {
+      maybeLoadScript("vega", "6")
+        .then(() => maybeLoadScript("vega-lite", "6.1.0"))
+        .then(() => maybeLoadScript("vega-embed", "7"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/movies.json"}, "mark": {"type": "circle"}, "encoding": {"color": {"condition": {"param": "Select", "field": "Major_Genre", "type": "nominal"}, "value": "grey"}, "opacity": {"condition": {"param": "Select", "value": 0.75}, "value": 0.05}, "tooltip": {"field": "Title", "type": "nominal"}, "x": {"field": "Rotten_Tomatoes_Rating", "type": "quantitative"}, "y": {"field": "IMDB_Rating", "type": "quantitative"}}, "params": [{"name": "Select", "select": {"type": "point", "fields": ["Major_Genre"]}, "bind": {"input": "select", "options": ["Action", "Adventure", "Black Comedy", "Comedy", "Concert/Performance", "Documentary", "Drama", "Horror", "Musical", "Romantic Comedy", "Thriller/Suspense", "Western"]}, "value": [{"Major_Genre": "Action"}]}], "$schema": "https://vega.github.io/schema/vega-lite/v6.1.0.json"}, {"mode": "vega-lite"});
+</script>
+</div>
+</div>
+<div id="7a115ca1" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># single-value selection over [Major_Genre, MPAA_Rating] pairs</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># use specific hard-wired values as the initial selected values</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>selection <span class="op">=</span> alt.selection_point(</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    name<span class="op">=</span><span class="st">'Select'</span>,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    fields<span class="op">=</span>[<span class="st">'Major_Genre'</span>, <span class="st">'MPAA_Rating'</span>], <span class="co"># campi di scelta</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    value<span class="op">=</span>[{<span class="st">'Major_Genre'</span>: <span class="st">'Drama'</span>, <span class="st">'MPAA_Rating'</span>: <span class="st">'R'</span>}], <span class="co">#valori scelti all'inizio</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    bind<span class="op">=</span>{<span class="st">'Major_Genre'</span>: alt.binding_select(options<span class="op">=</span>genres), <span class="st">'MPAA_Rating'</span>: alt.binding_radio(options<span class="op">=</span>mpaa)} <span class="co"># type: ignore</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co"># scatter plot, modify opacity based on selection</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>alt.Chart(movies).mark_circle().add_params(</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    selection</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>).encode(</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'Rotten_Tomatoes_Rating:Q'</span>,</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'IMDB_Rating:Q'</span>,</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    tooltip<span class="op">=</span><span class="st">'Title:N'</span>,</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    opacity<span class="op">=</span>alt.condition(selection, alt.value(<span class="fl">0.75</span>), alt.value(<span class="fl">0.05</span>)),</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    color <span class="op">=</span> alt.Color(alt.condition(selectGenre, <span class="st">'Major_Genre:N'</span>, alt.value(<span class="st">'grey'</span>)), )</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="43">
+
+<style>
+  #altair-viz-23310eeecb4044ffbfe7497ca7de5b97.vega-embed {
+    width: 100%;
+    display: flex;
+  }
+
+  #altair-viz-23310eeecb4044ffbfe7497ca7de5b97.vega-embed details,
+  #altair-viz-23310eeecb4044ffbfe7497ca7de5b97.vega-embed details summary {
+    position: relative;
+  }
+</style>
+<div id="altair-viz-23310eeecb4044ffbfe7497ca7de5b97"></div>
+<script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-23310eeecb4044ffbfe7497ca7de5b97") {
+      outputDiv = document.getElementById("altair-viz-23310eeecb4044ffbfe7497ca7de5b97");
+    }
+
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm/vega@6?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm/vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm/vega-lite@6.1.0?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm/vega-embed@7?noext",
+    };
+
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      let deps = ["vega-embed"];
+      require(deps, displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else {
+      maybeLoadScript("vega", "6")
+        .then(() => maybeLoadScript("vega-lite", "6.1.0"))
+        .then(() => maybeLoadScript("vega-embed", "7"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/movies.json"}, "mark": {"type": "circle"}, "encoding": {"color": {"condition": {"param": "Select", "field": "Major_Genre", "type": "nominal"}, "value": "grey"}, "opacity": {"condition": {"param": "Select", "value": 0.75}, "value": 0.05}, "tooltip": {"field": "Title", "type": "nominal"}, "x": {"field": "Rotten_Tomatoes_Rating", "type": "quantitative"}, "y": {"field": "IMDB_Rating", "type": "quantitative"}}, "params": [{"name": "Select", "select": {"type": "point", "fields": ["Major_Genre", "MPAA_Rating"]}, "bind": {"Major_Genre": {"input": "select", "options": ["Action", "Adventure", "Black Comedy", "Comedy", "Concert/Performance", "Documentary", "Drama", "Horror", "Musical", "Romantic Comedy", "Thriller/Suspense", "Western"]}, "MPAA_Rating": {"input": "radio", "options": ["G", "PG", "PG-13", "R", "NC-17", "Not Rated"]}}, "value": [{"Major_Genre": "Drama", "MPAA_Rating": "R"}]}], "$schema": "https://vega.github.io/schema/vega-lite/v6.1.0.json"}, {"mode": "vega-lite"});
+</script>
+</div>
+</div>
+<div id="f028d79a" class="cell" data-execution_count="44">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>brush <span class="op">=</span> alt.selection_interval(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    encodings<span class="op">=</span>[<span class="st">'x'</span>] <span class="co"># limit selection to x-axis (year) values</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># dynamic query histogram</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>years <span class="op">=</span> alt.Chart(movies).mark_bar().add_params(</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    brush</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>).encode(</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    alt.X(<span class="st">'year(Release_Date):T'</span>, title<span class="op">=</span><span class="st">'Films by Release Year'</span>),</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    alt.Y(<span class="st">'count():Q'</span>, title<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>).properties(</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="dv">650</span>,</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">50</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="co"># scatter plot, modify opacity based on selection</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>ratings <span class="op">=</span> alt.Chart(movies).mark_circle().encode(</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'Rotten_Tomatoes_Rating:Q'</span>,</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'IMDB_Rating:Q'</span>,</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    tooltip<span class="op">=</span><span class="st">'Title:N'</span>,</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>    opacity<span class="op">=</span>alt.condition(brush, alt.value(<span class="fl">0.75</span>), alt.value(<span class="fl">0.05</span>))</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>).properties(</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="dv">650</span>,</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">400</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>alt.vconcat(years, ratings).properties(spacing<span class="op">=</span><span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="44">
+
+<style>
+  #altair-viz-b7b9331dc31640678a2ae72971bd8692.vega-embed {
+    width: 100%;
+    display: flex;
+  }
+
+  #altair-viz-b7b9331dc31640678a2ae72971bd8692.vega-embed details,
+  #altair-viz-b7b9331dc31640678a2ae72971bd8692.vega-embed details summary {
+    position: relative;
+  }
+</style>
+<div id="altair-viz-b7b9331dc31640678a2ae72971bd8692"></div>
+<script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-b7b9331dc31640678a2ae72971bd8692") {
+      outputDiv = document.getElementById("altair-viz-b7b9331dc31640678a2ae72971bd8692");
+    }
+
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm/vega@6?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm/vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm/vega-lite@6.1.0?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm/vega-embed@7?noext",
+    };
+
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      let deps = ["vega-embed"];
+      require(deps, displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else {
+      maybeLoadScript("vega", "6")
+        .then(() => maybeLoadScript("vega-lite", "6.1.0"))
+        .then(() => maybeLoadScript("vega-embed", "7"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "vconcat": [{"mark": {"type": "bar"}, "encoding": {"x": {"field": "Release_Date", "timeUnit": "year", "title": "Films by Release Year", "type": "temporal"}, "y": {"aggregate": "count", "title": null, "type": "quantitative"}}, "height": 50, "name": "view_01f92194186aef94_0", "width": 650}, {"mark": {"type": "circle"}, "encoding": {"opacity": {"condition": {"param": "param_c97a99acfc68b794", "value": 0.75}, "value": 0.05}, "tooltip": {"field": "Title", "type": "nominal"}, "x": {"field": "Rotten_Tomatoes_Rating", "type": "quantitative"}, "y": {"field": "IMDB_Rating", "type": "quantitative"}}, "height": 400, "width": 650}], "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/movies.json"}, "params": [{"name": "param_c97a99acfc68b794", "select": {"type": "interval", "encodings": ["x"]}, "views": ["view_01f92194186aef94_0"]}], "spacing": 5, "$schema": "https://vega.github.io/schema/vega-lite/v6.1.0.json"}, {"mode": "vega-lite"});
+</script>
+</div>
+</div>
+<p>🔥 <strong>Selection Bias?</strong> Interagendo con il grafico, e possibile trovare traccia di <strong>selectin bias</strong>?</p>
+<center>
+<img src="images/SelectionBias.jpg" width="500">
+</center>
+<p>Un’altra applicazione molto <em>attraente</em> di questa tecnica la possiamo vedere sulla matrice di scatter plot, la <em>SPLOM</em>.</p>
+<div id="afb08bdf" class="cell" data-execution_count="60">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>brush <span class="op">=</span> alt.selection_interval(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    resolve<span class="op">=</span><span class="st">'intersect'</span> <span class="co"># resolve all selections to a single global instance</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>alt.Chart(cars).mark_circle().add_params(</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    brush</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>).encode(</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    alt.X(alt.repeat(<span class="st">'column'</span>), <span class="bu">type</span><span class="op">=</span><span class="st">'quantitative'</span>),</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    alt.Y(alt.repeat(<span class="st">'row'</span>), <span class="bu">type</span><span class="op">=</span><span class="st">'quantitative'</span>),</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span>alt.condition(brush, <span class="st">'Cylinders:O'</span>, alt.value(<span class="st">'grey'</span>)),</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    opacity<span class="op">=</span>alt.condition(brush, alt.value(<span class="fl">0.8</span>), alt.value(<span class="fl">0.1</span>))</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>).properties(</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="dv">140</span>,</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">140</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>).repeat(</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    column<span class="op">=</span>[<span class="st">'Acceleration'</span>, <span class="st">'Horsepower'</span>, <span class="st">'Miles_per_Gallon'</span>],</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    row<span class="op">=</span>[<span class="st">'Miles_per_Gallon'</span>, <span class="st">'Horsepower'</span>, <span class="st">'Acceleration'</span>]</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="60">
+
+<style>
+  #altair-viz-da1b5ba4b0484ad6af30c664f0f7c6db.vega-embed {
+    width: 100%;
+    display: flex;
+  }
+
+  #altair-viz-da1b5ba4b0484ad6af30c664f0f7c6db.vega-embed details,
+  #altair-viz-da1b5ba4b0484ad6af30c664f0f7c6db.vega-embed details summary {
+    position: relative;
+  }
+</style>
+<div id="altair-viz-da1b5ba4b0484ad6af30c664f0f7c6db"></div>
+<script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-da1b5ba4b0484ad6af30c664f0f7c6db") {
+      outputDiv = document.getElementById("altair-viz-da1b5ba4b0484ad6af30c664f0f7c6db");
+    }
+
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm/vega@6?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm/vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm/vega-lite@6.1.0?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm/vega-embed@7?noext",
+    };
+
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      let deps = ["vega-embed"];
+      require(deps, displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else {
+      maybeLoadScript("vega", "6")
+        .then(() => maybeLoadScript("vega-lite", "6.1.0"))
+        .then(() => maybeLoadScript("vega-embed", "7"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "repeat": {"column": ["Acceleration", "Horsepower", "Miles_per_Gallon"], "row": ["Miles_per_Gallon", "Horsepower", "Acceleration"]}, "spec": {"data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/cars.json"}, "mark": {"type": "circle"}, "encoding": {"color": {"condition": {"param": "param_204c0ceca1122eed", "field": "Cylinders", "type": "ordinal"}, "value": "grey"}, "opacity": {"condition": {"param": "param_204c0ceca1122eed", "value": 0.8}, "value": 0.1}, "x": {"field": {"repeat": "column"}, "type": "quantitative"}, "y": {"field": {"repeat": "row"}, "type": "quantitative"}}, "height": 140, "name": "view_d37c0ce57e49ba6e_0", "width": 140}, "params": [{"name": "param_204c0ceca1122eed", "select": {"type": "interval", "resolve": "intersect"}, "views": ["view_d37c0ce57e49ba6e_0_child__row_Miles_per_Galloncolumn_Acceleration", "view_d37c0ce57e49ba6e_0_child__row_Miles_per_Galloncolumn_Horsepower", "view_d37c0ce57e49ba6e_0_child__row_Miles_per_Galloncolumn_Miles_per_Gallon", "view_d37c0ce57e49ba6e_0_child__row_Horsepowercolumn_Acceleration", "view_d37c0ce57e49ba6e_0_child__row_Horsepowercolumn_Horsepower", "view_d37c0ce57e49ba6e_0_child__row_Horsepowercolumn_Miles_per_Gallon", "view_d37c0ce57e49ba6e_0_child__row_Accelerationcolumn_Acceleration", "view_d37c0ce57e49ba6e_0_child__row_Accelerationcolumn_Horsepower", "view_d37c0ce57e49ba6e_0_child__row_Accelerationcolumn_Miles_per_Gallon"]}], "$schema": "https://vega.github.io/schema/vega-lite/v6.1.0.json"}, {"mode": "vega-lite"});
+</script>
+</div>
+</div>
+<p>Il parametro <code>resolve</code> del generatore della <em>selection</em> e <strong>molto utile</strong>, permette di conciliare diversi insiemi di punti selezionati su grafici diversi: - <code>resolve = global</code>: vincola la selezione ad uno soltanto dei grafici alla volta, - <code>resolve = union</code>: il gruppo risultante di punti selezionati sara uguali all’unione dei punti selezionati su ogni grafico, - <code>resolve = intersect</code>: il gruppo risultante di punti selezionati sara uguali all’unione dei punti selezionati su ogni grafico,</p>
+<section id="cross-filtering" class="level3" data-number="13.2.1">
+<h3 data-number="13.2.1" class="anchored" data-anchor-id="cross-filtering"><span class="header-section-number">13.2.1</span> Cross-filtering</h3>
+<p>Infine un’ultima applicazione di query dinamiche.</p>
+<p>Gli esempi di <em>brushing</em> e <em>linking</em> che abbiamo esaminato utilizzano tutti codifiche condizionali, ad esempio per modificare i valori di opacità in risposta a una selezione. Un’altra opzione è quella di utilizzare una selezione definita in una vista per filtrare il contenuto di un’altra vista (<em>cross-filtering</em>).</p>
+<p>Creiamo una raccolta di istogrammi per il dataset dei voli: ritardo all’arrivo (in minuti, con quale anticipo o ritardo arriva un volo), distanza percorsa (in miglia) e ora di partenza (ora del giorno). Useremo l’operatore <code>repeat</code> per creare gli istogrammi e aggiungeremo una selezione di intervalli <code>selection_interval</code> per l’asse x, con conflitti di selezione inter-grafico risolti tramite <strong>intersezione</strong>.</p>
+<p>In particolare, ogni istogramma sarà composto da due livelli: 1. un livello di sfondo grigio, 2. un livello di primo piano <strong>blu</strong>, con il livello di primo piano filtrato dall’intersezione delle selezioni di pennello.</p>
+<p>Il risultato è un’interazione di <strong>filtraggio incrociato</strong> tra i tre grafici!</p>
+<div id="92b64a3b" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>brush <span class="op">=</span> alt.selection_interval(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    encodings<span class="op">=</span>[<span class="st">'x'</span>],</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    resolve<span class="op">=</span><span class="st">'intersect'</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>)<span class="op">;</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>hist <span class="op">=</span> alt.Chart().mark_bar().encode(</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    alt.X(alt.repeat(<span class="st">'row'</span>), <span class="bu">type</span><span class="op">=</span><span class="st">'quantitative'</span>,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">bin</span><span class="op">=</span>alt.Bin(maxbins<span class="op">=</span><span class="dv">100</span>, minstep<span class="op">=</span><span class="dv">1</span>), <span class="co"># up to 100 bins</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>        axis<span class="op">=</span>alt.Axis(<span class="bu">format</span><span class="op">=</span><span class="st">'d'</span>, titleAnchor<span class="op">=</span><span class="st">'start'</span>) <span class="co"># integer format, left-aligned title</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    alt.Y(<span class="st">'count():Q'</span>, title<span class="op">=</span><span class="va">None</span>) <span class="co"># no y-axis title</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>alt.layer(</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    hist.add_params(brush).encode(color<span class="op">=</span>alt.value(<span class="st">'lightgrey'</span>)), <span class="co"># istogramma sfondo </span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    hist.transform_filter(brush) <span class="co"># istogramma colorato sui valori selezionati </span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>).properties(</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="dv">700</span>,</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">100</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>).repeat(</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>    row<span class="op">=</span>[<span class="st">'delay'</span>, <span class="st">'distance'</span>, <span class="st">'time'</span>],</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>flights</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>).transform_calculate(</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>    delay<span class="op">=</span><span class="st">'datum.delay &lt; 180 ? datum.delay : 180'</span>, <span class="co"># clamp delays &gt; 3 hours</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>    time<span class="op">=</span><span class="st">'hours(datum.date) + minutes(datum.date) / 60'</span> <span class="co"># fractional hours</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>).configure_view(</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>    stroke<span class="op">=</span><span class="st">'transparent'</span> <span class="co"># no outline</span></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="62">
+
+<style>
+  #altair-viz-461a7b323b2e4728b0640cac521effe4.vega-embed {
+    width: 100%;
+    display: flex;
+  }
+
+  #altair-viz-461a7b323b2e4728b0640cac521effe4.vega-embed details,
+  #altair-viz-461a7b323b2e4728b0640cac521effe4.vega-embed details summary {
+    position: relative;
+  }
+</style>
+<div id="altair-viz-461a7b323b2e4728b0640cac521effe4"></div>
+<script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-461a7b323b2e4728b0640cac521effe4") {
+      outputDiv = document.getElementById("altair-viz-461a7b323b2e4728b0640cac521effe4");
+    }
+
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm/vega@6?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm/vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm/vega-lite@6.1.0?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm/vega-embed@7?noext",
+    };
+
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      let deps = ["vega-embed"];
+      require(deps, displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else {
+      maybeLoadScript("vega", "6")
+        .then(() => maybeLoadScript("vega-lite", "6.1.0"))
+        .then(() => maybeLoadScript("vega-embed", "7"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 300, "continuousHeight": 300, "stroke": "transparent"}}, "repeat": {"row": ["delay", "distance", "time"]}, "spec": {"layer": [{"mark": {"type": "bar"}, "encoding": {"color": {"value": "lightgrey"}, "x": {"axis": {"format": "d", "titleAnchor": "start"}, "bin": {"maxbins": 100, "minstep": 1}, "field": {"repeat": "row"}, "type": "quantitative"}, "y": {"aggregate": "count", "title": null, "type": "quantitative"}}, "name": "view_3f14742f86d3cf47_0"}, {"mark": {"type": "bar"}, "encoding": {"x": {"axis": {"format": "d", "titleAnchor": "start"}, "bin": {"maxbins": 100, "minstep": 1}, "field": {"repeat": "row"}, "type": "quantitative"}, "y": {"aggregate": "count", "title": null, "type": "quantitative"}}, "transform": [{"filter": {"param": "param_1693fa9d50447fe3"}}]}], "height": 100, "width": 700}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/flights-5k.json"}, "params": [{"name": "param_1693fa9d50447fe3", "select": {"type": "interval", "encodings": ["x"], "resolve": "intersect"}, "views": ["child__row_delay_view_3f14742f86d3cf47_0", "child__row_distance_view_3f14742f86d3cf47_0", "child__row_time_view_3f14742f86d3cf47_0"]}], "transform": [{"calculate": "datum.delay < 180 ? datum.delay : 180", "as": "delay"}, {"calculate": "hours(datum.date) + minutes(datum.date) / 60", "as": "time"}], "$schema": "https://vega.github.io/schema/vega-lite/v6.1.0.json"}, {"mode": "vega-lite"});
+</script>
+</div>
+</div>
+</section>
+</section>
+<section id="panning-zooming" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="panning-zooming"><span class="header-section-number">13.3</span> 🔍 Panning &amp; Zooming</h2>
+<p>Questo tipo di interazione permette di cambiare la porzione di grafico che si visualizza a scherma, potendo decidere interattivamente il soggetto d’analisi.</p>
+<div id="480dd580" class="cell" data-execution_count="46">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>alt.Chart(movies).mark_circle().add_params(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    alt.selection_interval(bind<span class="op">=</span><span class="st">'scales'</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>).encode(</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'Rotten_Tomatoes_Rating:Q'</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>alt.Y(<span class="st">'IMDB_Rating:Q'</span>, axis<span class="op">=</span>alt.Axis(minExtent<span class="op">=</span><span class="dv">30</span>)), <span class="co"># use min extent to stabilize axis title placement</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    tooltip<span class="op">=</span>[<span class="st">'Title:N'</span>, <span class="st">'Release_Date:N'</span>, <span class="st">'IMDB_Rating:Q'</span>, <span class="st">'Rotten_Tomatoes_Rating:Q'</span>]</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>).properties(</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="dv">600</span>,</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">400</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co"># codice equivalente </span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>alt.Chart(movies).mark_circle().encode(</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'Rotten_Tomatoes_Rating:Q'</span>,</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>alt.Y(<span class="st">'IMDB_Rating:Q'</span>, axis<span class="op">=</span>alt.Axis(minExtent<span class="op">=</span><span class="dv">30</span>)), <span class="co"># use min extent to stabilize axis title placement</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    tooltip<span class="op">=</span>[<span class="st">'Title:N'</span>, <span class="st">'Release_Date:N'</span>, <span class="st">'IMDB_Rating:Q'</span>, <span class="st">'Rotten_Tomatoes_Rating:Q'</span>]</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>).properties(</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="dv">600</span>,</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">400</span></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>).interactive()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="46">
+
+<style>
+  #altair-viz-f04861ef723d4866be24f1c122f99de2.vega-embed {
+    width: 100%;
+    display: flex;
+  }
+
+  #altair-viz-f04861ef723d4866be24f1c122f99de2.vega-embed details,
+  #altair-viz-f04861ef723d4866be24f1c122f99de2.vega-embed details summary {
+    position: relative;
+  }
+</style>
+<div id="altair-viz-f04861ef723d4866be24f1c122f99de2"></div>
+<script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-f04861ef723d4866be24f1c122f99de2") {
+      outputDiv = document.getElementById("altair-viz-f04861ef723d4866be24f1c122f99de2");
+    }
+
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm/vega@6?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm/vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm/vega-lite@6.1.0?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm/vega-embed@7?noext",
+    };
+
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      let deps = ["vega-embed"];
+      require(deps, displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else {
+      maybeLoadScript("vega", "6")
+        .then(() => maybeLoadScript("vega-lite", "6.1.0"))
+        .then(() => maybeLoadScript("vega-embed", "7"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/movies.json"}, "mark": {"type": "circle"}, "encoding": {"tooltip": [{"field": "Title", "type": "nominal"}, {"field": "Release_Date", "type": "nominal"}, {"field": "IMDB_Rating", "type": "quantitative"}, {"field": "Rotten_Tomatoes_Rating", "type": "quantitative"}], "x": {"field": "Rotten_Tomatoes_Rating", "type": "quantitative"}, "y": {"axis": {"minExtent": 30}, "field": "IMDB_Rating", "type": "quantitative"}}, "height": 400, "params": [{"name": "param_1e9efca18e7a2868", "select": {"type": "interval", "encodings": ["x", "y"]}, "bind": "scales"}], "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v6.1.0.json"}, {"mode": "vega-lite"});
+</script>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>🔍 <strong>ATTENZIONE!</strong></p>
+<p>Cosa possiamo notare zoomando il grafico? Come sono distribuiti i dati? Sono distribuiti in modo continuo nello spazio oppure sono <em>quantizzati</em>?</p>
+</blockquote>
+<p>E anche possibile limitare la direzione lungo la quale avviene lo <em>zoom</em>, specificando il parametro <code>bind</code> nel costruttore <code>selection_interval</code>.</p>
+<div id="45efd962" class="cell" data-execution_count="47">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>alt.Chart(movies).mark_circle().add_params(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    alt.selection_interval(bind<span class="op">=</span><span class="st">'scales'</span>, encodings<span class="op">=</span>[<span class="st">'x'</span>])</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>).encode(</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'Rotten_Tomatoes_Rating:Q'</span>,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>alt.Y(<span class="st">'IMDB_Rating:Q'</span>, axis<span class="op">=</span>alt.Axis(minExtent<span class="op">=</span><span class="dv">30</span>)), <span class="co"># use min extent to stabilize axis title placement</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    tooltip<span class="op">=</span>[<span class="st">'Title:N'</span>, <span class="st">'Release_Date:N'</span>, <span class="st">'IMDB_Rating:Q'</span>, <span class="st">'Rotten_Tomatoes_Rating:Q'</span>]</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>).properties(</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="dv">600</span>,</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">400</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="47">
+
+<style>
+  #altair-viz-1dc0e1cc23c8425ca7fa6d51efa80c9e.vega-embed {
+    width: 100%;
+    display: flex;
+  }
+
+  #altair-viz-1dc0e1cc23c8425ca7fa6d51efa80c9e.vega-embed details,
+  #altair-viz-1dc0e1cc23c8425ca7fa6d51efa80c9e.vega-embed details summary {
+    position: relative;
+  }
+</style>
+<div id="altair-viz-1dc0e1cc23c8425ca7fa6d51efa80c9e"></div>
+<script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-1dc0e1cc23c8425ca7fa6d51efa80c9e") {
+      outputDiv = document.getElementById("altair-viz-1dc0e1cc23c8425ca7fa6d51efa80c9e");
+    }
+
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm/vega@6?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm/vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm/vega-lite@6.1.0?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm/vega-embed@7?noext",
+    };
+
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      let deps = ["vega-embed"];
+      require(deps, displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else {
+      maybeLoadScript("vega", "6")
+        .then(() => maybeLoadScript("vega-lite", "6.1.0"))
+        .then(() => maybeLoadScript("vega-embed", "7"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/movies.json"}, "mark": {"type": "circle"}, "encoding": {"tooltip": [{"field": "Title", "type": "nominal"}, {"field": "Release_Date", "type": "nominal"}, {"field": "IMDB_Rating", "type": "quantitative"}, {"field": "Rotten_Tomatoes_Rating", "type": "quantitative"}], "x": {"field": "Rotten_Tomatoes_Rating", "type": "quantitative"}, "y": {"axis": {"minExtent": 30}, "field": "IMDB_Rating", "type": "quantitative"}}, "height": 400, "params": [{"name": "param_db82be42624d4632", "select": {"type": "interval", "encodings": ["x"]}, "bind": "scales"}], "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v6.1.0.json"}, {"mode": "vega-lite"});
+</script>
+</div>
+</div>
+<section id="overview-e-zoom" class="level3" data-number="13.3.1">
+<h3 data-number="13.3.1" class="anchored" data-anchor-id="overview-e-zoom"><span class="header-section-number">13.3.1</span> Overview e Zoom</h3>
+<p>Una tecnica di visualizzazione molto utile che permette sia di visualizzare porzioni specifiche del grafico, che di mantenere una visione d’insieme sui dati prende il nome di <em>Overview and Zoom</em>. Per realizzarla con <em>Altair</em>, quello che possiamo fare e: 1. creare una selezione multipla con <code>selection_interval</code>, 2. concatenare verticalmente due grafici con <code>vconcat</code>, quello zoomato e quello globale, 3. fare in modo di generare l’asse X <strong>zoomato</strong> del grafico dinamicamente, facendo in modo che la funzione di scale, che mappa il campo <code>date</code> del dataset con l’asse, abbia come dominio proprio l’insieme di valori selezionato interattivamente dall’utente.</p>
+<div id="2189605f" class="cell" data-execution_count="48">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># interval selection lungo l'asse x</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>brush <span class="op">=</span> alt.selection_interval(encodings<span class="op">=</span>[<span class="st">'x'</span>])<span class="op">;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># base chart</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>base <span class="op">=</span> alt.Chart().mark_area().encode(</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    alt.X(<span class="st">'date:T'</span>, title<span class="op">=</span><span class="va">None</span>),</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    alt.Y(<span class="st">'price:Q'</span>)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>).properties(</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="dv">700</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="co"># fissare la scale in base ai dati selezionati dall'utente  </span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>alt.vconcat(</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    base.encode(alt.X(<span class="st">'date:T'</span>, title<span class="op">=</span><span class="va">None</span>, scale<span class="op">=</span>alt.Scale(domain<span class="op">=</span>brush))),</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    base.add_params(brush).properties(height<span class="op">=</span><span class="dv">60</span>),</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>sp500</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="48">
+
+<style>
+  #altair-viz-551e849c63a84d86b9d5d7139aaea97a.vega-embed {
+    width: 100%;
+    display: flex;
+  }
+
+  #altair-viz-551e849c63a84d86b9d5d7139aaea97a.vega-embed details,
+  #altair-viz-551e849c63a84d86b9d5d7139aaea97a.vega-embed details summary {
+    position: relative;
+  }
+</style>
+<div id="altair-viz-551e849c63a84d86b9d5d7139aaea97a"></div>
+<script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-551e849c63a84d86b9d5d7139aaea97a") {
+      outputDiv = document.getElementById("altair-viz-551e849c63a84d86b9d5d7139aaea97a");
+    }
+
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm/vega@6?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm/vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm/vega-lite@6.1.0?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm/vega-embed@7?noext",
+    };
+
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      let deps = ["vega-embed"];
+      require(deps, displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else {
+      maybeLoadScript("vega", "6")
+        .then(() => maybeLoadScript("vega-lite", "6.1.0"))
+        .then(() => maybeLoadScript("vega-embed", "7"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "vconcat": [{"mark": {"type": "area"}, "encoding": {"x": {"field": "date", "scale": {"domain": {"param": "param_c97a99acfc68b794"}}, "title": null, "type": "temporal"}, "y": {"field": "price", "type": "quantitative"}}, "width": 700}, {"mark": {"type": "area"}, "encoding": {"x": {"field": "date", "title": null, "type": "temporal"}, "y": {"field": "price", "type": "quantitative"}}, "height": 60, "name": "view_4755cfa950f57438_1", "width": 700}], "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/sp500.csv"}, "params": [{"name": "param_c97a99acfc68b794", "select": {"type": "interval", "encodings": ["x"]}, "views": ["view_4755cfa950f57438_1"]}], "$schema": "https://vega.github.io/schema/vega-lite/v6.1.0.json"}, {"mode": "vega-lite"});
+</script>
+</div>
+</div>
+</section>
+</section>
+<section id="details-on-demand" class="level2" data-number="13.4">
+<h2 data-number="13.4" class="anchored" data-anchor-id="details-on-demand"><span class="header-section-number">13.4</span> 🎛️ Details on-demand</h2>
+<p>Questo tipo di interazione, traducibile con <em>dettagli su richiesta</em>, permette di ottenere informazioni in piu su particolari punti del grafico, solamente quando richiesto attivamente dall’utente.</p>
+<div id="48124512" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>hover <span class="op">=</span> alt.selection_point(</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    on<span class="op">=</span><span class="st">'mouseover'</span>,  <span class="co"># select on mouseover</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    nearest<span class="op">=</span><span class="va">True</span>,    <span class="co"># select nearest point to mouse cursor</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    empty<span class="op">=</span> <span class="va">False</span>     <span class="co"># empty selection should match nothing</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>click <span class="op">=</span> alt.selection_point(</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    empty<span class="op">=</span> <span class="va">False</span> <span class="co"># empty selection matches no points</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co"># scatter plot encodings shared by all marks</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>plot <span class="op">=</span> alt.Chart().mark_circle().encode(</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'Rotten_Tomatoes_Rating:Q'</span>,</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'IMDB_Rating:Q'</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="co"># grafico che visualizza solamente i dati selezionati dall'utente in uno dei due modi definiti</span></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>base <span class="op">=</span> plot.transform_filter(</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>    hover <span class="op">|</span> click <span class="co"># filter to points in either selection</span></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a><span class="co"># layer scatter plot points, halo annotations, and title labels</span></span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>alt.layer(</span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>    plot.add_params(hover).add_params(click),</span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>    base.mark_point(size<span class="op">=</span><span class="dv">100</span>, stroke<span class="op">=</span><span class="st">'firebrick'</span>, strokeWidth<span class="op">=</span><span class="dv">1</span>), <span class="co"># aureola</span></span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>    base.mark_text(dx<span class="op">=</span><span class="dv">4</span>, dy<span class="op">=-</span><span class="dv">8</span>, align<span class="op">=</span><span class="st">'right'</span>, stroke<span class="op">=</span><span class="st">'white'</span>, strokeWidth<span class="op">=</span><span class="dv">2</span>).encode(text<span class="op">=</span><span class="st">'Title:N'</span>), <span class="co"># sfondo bianch per la scritta</span></span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>    base.mark_text(dx<span class="op">=</span><span class="dv">4</span>, dy<span class="op">=-</span><span class="dv">8</span>, align<span class="op">=</span><span class="st">'right'</span>).encode(text<span class="op">=</span><span class="st">'Title:N'</span>), <span class="co"># testo</span></span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>movies</span>
+<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>).properties(</span>
+<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="dv">600</span>,</span>
+<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">450</span></span>
+<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="55">
+
+<style>
+  #altair-viz-15b0ae750d6b4dd2b53b7d881c75e256.vega-embed {
+    width: 100%;
+    display: flex;
+  }
+
+  #altair-viz-15b0ae750d6b4dd2b53b7d881c75e256.vega-embed details,
+  #altair-viz-15b0ae750d6b4dd2b53b7d881c75e256.vega-embed details summary {
+    position: relative;
+  }
+</style>
+<div id="altair-viz-15b0ae750d6b4dd2b53b7d881c75e256"></div>
+<script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-15b0ae750d6b4dd2b53b7d881c75e256") {
+      outputDiv = document.getElementById("altair-viz-15b0ae750d6b4dd2b53b7d881c75e256");
+    }
+
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm/vega@6?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm/vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm/vega-lite@6.1.0?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm/vega-embed@7?noext",
+    };
+
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      let deps = ["vega-embed"];
+      require(deps, displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else {
+      maybeLoadScript("vega", "6")
+        .then(() => maybeLoadScript("vega-lite", "6.1.0"))
+        .then(() => maybeLoadScript("vega-embed", "7"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "layer": [{"mark": {"type": "circle"}, "encoding": {"x": {"field": "Rotten_Tomatoes_Rating", "type": "quantitative"}, "y": {"field": "IMDB_Rating", "type": "quantitative"}}, "name": "view_7f8e1094e51e44bc_0"}, {"mark": {"type": "point", "size": 100, "stroke": "firebrick", "strokeWidth": 1}, "encoding": {"x": {"field": "Rotten_Tomatoes_Rating", "type": "quantitative"}, "y": {"field": "IMDB_Rating", "type": "quantitative"}}, "transform": [{"filter": {"or": [{"param": "param_91deafaa61220430", "empty": false}, {"param": "param_74bbfe4b16a17eeb", "empty": false}]}}]}, {"mark": {"type": "text", "align": "right", "dx": 4, "dy": -8, "stroke": "white", "strokeWidth": 2}, "encoding": {"text": {"field": "Title", "type": "nominal"}, "x": {"field": "Rotten_Tomatoes_Rating", "type": "quantitative"}, "y": {"field": "IMDB_Rating", "type": "quantitative"}}, "transform": [{"filter": {"or": [{"param": "param_91deafaa61220430", "empty": false}, {"param": "param_74bbfe4b16a17eeb", "empty": false}]}}]}, {"mark": {"type": "text", "align": "right", "dx": 4, "dy": -8}, "encoding": {"text": {"field": "Title", "type": "nominal"}, "x": {"field": "Rotten_Tomatoes_Rating", "type": "quantitative"}, "y": {"field": "IMDB_Rating", "type": "quantitative"}}, "transform": [{"filter": {"or": [{"param": "param_91deafaa61220430", "empty": false}, {"param": "param_74bbfe4b16a17eeb", "empty": false}]}}]}], "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/movies.json"}, "height": 450, "params": [{"name": "param_91deafaa61220430", "select": {"type": "point", "nearest": true, "on": "mouseover"}, "views": ["view_7f8e1094e51e44bc_0"]}, {"name": "param_74bbfe4b16a17eeb", "select": {"type": "point"}, "views": ["view_7f8e1094e51e44bc_0"]}], "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v6.1.0.json"}, {"mode": "vega-lite"});
+</script>
+</div>
+</div>
+<p>Un grafico piu complesso sempre realizzato con lo stesso metodo e questo:</p>
+<div id="297381b3" class="cell" data-execution_count="56">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># select a point for which to provide details-on-demand</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>label <span class="op">=</span> alt.selection_point(</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    encodings<span class="op">=</span>[<span class="st">'x'</span>], <span class="co"># limit selection to x-axis value</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    on<span class="op">=</span><span class="st">'mouseover'</span>,  <span class="co"># select on mouseover events</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    nearest<span class="op">=</span><span class="va">True</span>,    <span class="co"># select data point nearest the cursor</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    empty<span class="op">=</span><span class="va">False</span>     <span class="co"># empty selection includes no data points</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co"># define our base line chart of stock prices</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>base <span class="op">=</span> alt.Chart().mark_line().encode(</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    alt.X(<span class="st">'date:T'</span>),</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    alt.Y(<span class="st">'price:Q'</span>, scale<span class="op">=</span>alt.Scale(<span class="bu">type</span><span class="op">=</span><span class="st">'log'</span>)),</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    alt.Color(<span class="st">'symbol:N'</span>)</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>alt.layer(</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>    base, <span class="co"># base line chart</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add a rule mark to serve as a guide line</span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>    alt.Chart().mark_rule(color<span class="op">=</span><span class="st">'#aaa'</span>).encode(</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>        x<span class="op">=</span><span class="st">'date:T'</span></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>    ).transform_filter(label),</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add circle marks for selected time points, hide unselected points</span></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>    base.mark_circle().encode(</span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>        opacity<span class="op">=</span>alt.condition(label, alt.value(<span class="dv">1</span>), alt.value(<span class="dv">0</span>))</span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>    ).add_params(label),</span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add white stroked text to provide a legible background for labels</span></span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>    base.mark_text(align<span class="op">=</span><span class="st">'left'</span>, dx<span class="op">=</span><span class="dv">5</span>, dy<span class="op">=-</span><span class="dv">5</span>, stroke<span class="op">=</span><span class="st">'white'</span>, strokeWidth<span class="op">=</span><span class="dv">2</span>).encode(</span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a>        text<span class="op">=</span><span class="st">'price:Q'</span></span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a>    ).transform_filter(label),</span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add text labels for stock prices</span></span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a>    base.mark_text(align<span class="op">=</span><span class="st">'left'</span>, dx<span class="op">=</span><span class="dv">5</span>, dy<span class="op">=-</span><span class="dv">5</span>).encode(</span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a>        text<span class="op">=</span><span class="st">'price:Q'</span></span>
+<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a>    ).transform_filter(label),</span>
+<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb19-39"><a href="#cb19-39" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>stocks</span>
+<span id="cb19-40"><a href="#cb19-40" aria-hidden="true" tabindex="-1"></a>).properties(</span>
+<span id="cb19-41"><a href="#cb19-41" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="dv">700</span>,</span>
+<span id="cb19-42"><a href="#cb19-42" aria-hidden="true" tabindex="-1"></a>    height<span class="op">=</span><span class="dv">400</span></span>
+<span id="cb19-43"><a href="#cb19-43" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="56">
+
+<style>
+  #altair-viz-88019512551c433ca85eb1d80b848883.vega-embed {
+    width: 100%;
+    display: flex;
+  }
+
+  #altair-viz-88019512551c433ca85eb1d80b848883.vega-embed details,
+  #altair-viz-88019512551c433ca85eb1d80b848883.vega-embed details summary {
+    position: relative;
+  }
+</style>
+<div id="altair-viz-88019512551c433ca85eb1d80b848883"></div>
+<script type="text/javascript">
+  var VEGA_DEBUG = (typeof VEGA_DEBUG == "undefined") ? {} : VEGA_DEBUG;
+  (function(spec, embedOpt){
+    let outputDiv = document.currentScript.previousElementSibling;
+    if (outputDiv.id !== "altair-viz-88019512551c433ca85eb1d80b848883") {
+      outputDiv = document.getElementById("altair-viz-88019512551c433ca85eb1d80b848883");
+    }
+
+    const paths = {
+      "vega": "https://cdn.jsdelivr.net/npm/vega@6?noext",
+      "vega-lib": "https://cdn.jsdelivr.net/npm/vega-lib?noext",
+      "vega-lite": "https://cdn.jsdelivr.net/npm/vega-lite@6.1.0?noext",
+      "vega-embed": "https://cdn.jsdelivr.net/npm/vega-embed@7?noext",
+    };
+
+    function maybeLoadScript(lib, version) {
+      var key = `${lib.replace("-", "")}_version`;
+      return (VEGA_DEBUG[key] == version) ?
+        Promise.resolve(paths[lib]) :
+        new Promise(function(resolve, reject) {
+          var s = document.createElement('script');
+          document.getElementsByTagName("head")[0].appendChild(s);
+          s.async = true;
+          s.onload = () => {
+            VEGA_DEBUG[key] = version;
+            return resolve(paths[lib]);
+          };
+          s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
+          s.src = paths[lib];
+        });
+    }
+
+    function showError(err) {
+      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
+      throw err;
+    }
+
+    function displayChart(vegaEmbed) {
+      vegaEmbed(outputDiv, spec, embedOpt)
+        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
+    }
+
+    if(typeof define === "function" && define.amd) {
+      requirejs.config({paths});
+      let deps = ["vega-embed"];
+      require(deps, displayChart, err => showError(`Error loading script: ${err.message}`));
+    } else {
+      maybeLoadScript("vega", "6")
+        .then(() => maybeLoadScript("vega-lite", "6.1.0"))
+        .then(() => maybeLoadScript("vega-embed", "7"))
+        .catch(showError)
+        .then(() => displayChart(vegaEmbed));
+    }
+  })({"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "layer": [{"mark": {"type": "line"}, "encoding": {"color": {"field": "symbol", "type": "nominal"}, "x": {"field": "date", "type": "temporal"}, "y": {"field": "price", "scale": {"type": "log"}, "type": "quantitative"}}}, {"mark": {"type": "rule", "color": "#aaa"}, "encoding": {"x": {"field": "date", "type": "temporal"}}, "transform": [{"filter": {"param": "param_f253730e1bcb68c0", "empty": false}}]}, {"mark": {"type": "circle"}, "encoding": {"color": {"field": "symbol", "type": "nominal"}, "opacity": {"condition": {"param": "param_f253730e1bcb68c0", "value": 1, "empty": false}, "value": 0}, "x": {"field": "date", "type": "temporal"}, "y": {"field": "price", "scale": {"type": "log"}, "type": "quantitative"}}, "name": "view_3928146c1beac49f_2"}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5, "stroke": "white", "strokeWidth": 2}, "encoding": {"color": {"field": "symbol", "type": "nominal"}, "text": {"field": "price", "type": "quantitative"}, "x": {"field": "date", "type": "temporal"}, "y": {"field": "price", "scale": {"type": "log"}, "type": "quantitative"}}, "transform": [{"filter": {"param": "param_f253730e1bcb68c0", "empty": false}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"color": {"field": "symbol", "type": "nominal"}, "text": {"field": "price", "type": "quantitative"}, "x": {"field": "date", "type": "temporal"}, "y": {"field": "price", "scale": {"type": "log"}, "type": "quantitative"}}, "transform": [{"filter": {"param": "param_f253730e1bcb68c0", "empty": false}}]}], "data": {"url": "https://cdn.jsdelivr.net/npm/vega-datasets@1/data/stocks.csv"}, "height": 400, "params": [{"name": "param_f253730e1bcb68c0", "select": {"type": "point", "encodings": ["x"], "nearest": true, "on": "mouseover"}, "views": ["view_3928146c1beac49f_2"]}], "width": 700, "$schema": "https://vega.github.io/schema/vega-lite/v6.1.0.json"}, {"mode": "vega-lite"});
+</script>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./10_Altair_MultiViewComposition.html" class="pagination-link" aria-label="Composizione Multipla">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Composizione Multipla</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./P01_Preprocessing_GameZoneOrders.html" class="pagination-link" aria-label="Preprocessing Framework">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Preprocessing Framework</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.dev/vivri161803/PythonForDataAnanlysis/blob/main/11_Altair_InteractionsWalkthrough.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/vivri161803/PythonForDataAnanlysis/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

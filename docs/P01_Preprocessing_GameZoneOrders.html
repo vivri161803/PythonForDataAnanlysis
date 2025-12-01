@@ -1,0 +1,2350 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>14&nbsp; Preprocessing Framework – Data Science con Python</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./P02_TellingaStoryWithData.html" rel="next">
+<link href="./11_Altair_InteractionsWalkthrough.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-6e4966e5692096c2ad4547581fd6ae89.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./P01_Preprocessing_GameZoneOrders.html">Progetti</a></li><li class="breadcrumb-item"><a href="./P01_Preprocessing_GameZoneOrders.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Preprocessing Framework</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Data Science con Python</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/vivri161803/PythonForDataAnanlysis" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">How to use these notes:</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Fondamenti</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00_PythonTipsAndTricks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Python tips and tricks</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_NumpyIntroduction_VectorizedComputations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduzione alla computazione vettorizzata</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_PandasIntroduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Introduzione a Pandas</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_DataCleaningAndPreparation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Data Cleaning and Preparation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_DataWrangling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Data Wrangling</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Visualizzazione</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_PlottingAndVisualization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Realizzazione di Grafici e Visualizzazione dei Dati</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_IntroduzioneAltair.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Introduzione ad Altair</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07_ Altair_TypesMarksChannels.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Data Types, Graphical Marks, and Visual Encoding Channels</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08_Altair_TrasformazioniSuiDati.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Trasformazioni sui dati</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09_Altair_AxesScalesLegends.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Assi, Scale e Legende</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10_Altair_MultiViewComposition.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Composizione Multipla</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11_Altair_InteractionsWalkthrough.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Interazioni</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Progetti</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P01_Preprocessing_GameZoneOrders.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Preprocessing Framework</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P02_TellingaStoryWithData.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Raccontare una storia con i dati</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#il-framework-clean" id="toc-il-framework-clean" class="nav-link active" data-scroll-target="#il-framework-clean"><span class="header-section-number">14.0.1</span> Il Framework CLEAN</a></li>
+  <li><a href="#conceptualize-concettualizzazione" id="toc-conceptualize-concettualizzazione" class="nav-link" data-scroll-target="#conceptualize-concettualizzazione"><span class="header-section-number">14.0.2</span> 1. 🇨 - Conceptualize (Concettualizzazione)</a></li>
+  <li><a href="#locate-solvable-issues-problemi-risolvibili" id="toc-locate-solvable-issues-problemi-risolvibili" class="nav-link" data-scroll-target="#locate-solvable-issues-problemi-risolvibili"><span class="header-section-number">14.0.3</span> 2. 🇱 - Locate Solvable Issues (Problemi Risolvibili)</a></li>
+  <li><a href="#evaluate-unsolvable-issues-valutare-problemi-non-risolvibili" id="toc-evaluate-unsolvable-issues-valutare-problemi-non-risolvibili" class="nav-link" data-scroll-target="#evaluate-unsolvable-issues-valutare-problemi-non-risolvibili"><span class="header-section-number">14.0.4</span> 3. 🇪 - Evaluate Unsolvable Issues (Valutare problemi non risolvibili)</a></li>
+  <li><a href="#augment-data-arricchire-i-dati" id="toc-augment-data-arricchire-i-dati" class="nav-link" data-scroll-target="#augment-data-arricchire-i-dati"><span class="header-section-number">14.0.5</span> 4. 🅰️ - Augment Data (Arricchire i dati)</a></li>
+  <li><a href="#note-and-document-annotare" id="toc-note-and-document-annotare" class="nav-link" data-scroll-target="#note-and-document-annotare"><span class="header-section-number">14.0.6</span> 5. 🇳 - Note and Document (Annotare)</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.dev/vivri161803/PythonForDataAnanlysis/blob/main/P01_Preprocessing_GameZoneOrders.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/vivri161803/PythonForDataAnanlysis/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./P01_Preprocessing_GameZoneOrders.html">Progetti</a></li><li class="breadcrumb-item"><a href="./P01_Preprocessing_GameZoneOrders.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Preprocessing Framework</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Preprocessing Framework</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Per prima cosa importiamo le librerie che utilizzeremo nel progetto.</p>
+<div id="85cfa5a7" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Una volte che abbiamo scaricato il dataset creiamo il DataFrame <em>pandas</em> dove salvare i dati.</p>
+<div id="7dd8c37e" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dipendenza: `openpyxl`</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> <span class="st">'/home/carlo-bianchi/Documents/Coding/PythonForDataAnanlysis/examples/gamezone-orders-data.xlsx'</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_excel(path)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>data.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">USER_ID</th>
+<th data-quarto-table-cell-role="th">ORDER_ID</th>
+<th data-quarto-table-cell-role="th">PURCHASE_TS</th>
+<th data-quarto-table-cell-role="th">SHIP_TS</th>
+<th data-quarto-table-cell-role="th">PRODUCT_NAME</th>
+<th data-quarto-table-cell-role="th">PRODUCT_ID</th>
+<th data-quarto-table-cell-role="th">USD_PRICE</th>
+<th data-quarto-table-cell-role="th">PURCHASE_PLATFORM</th>
+<th data-quarto-table-cell-role="th">MARKETING_CHANNEL</th>
+<th data-quarto-table-cell-role="th">ACCOUNT_CREATION_METHOD</th>
+<th data-quarto-table-cell-role="th">COUNTRY_CODE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>2c06175e</td>
+<td>0001328c3c220830</td>
+<td>2020-12-24 00:00:00</td>
+<td>2020-12-13</td>
+<td>Nintendo Switch</td>
+<td>e682</td>
+<td>168.00</td>
+<td>website</td>
+<td>affiliate</td>
+<td>unknown</td>
+<td>US</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>ee8e5bc2</td>
+<td>0002af7a5c6100772</td>
+<td>2020-10-01 00:00:00</td>
+<td>2020-09-21</td>
+<td>Nintendo Switch</td>
+<td>e682</td>
+<td>160.61</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>DE</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>9eb4efe0</td>
+<td>0002b8350e167074</td>
+<td>2020-04-21 00:00:00</td>
+<td>2020-02-16</td>
+<td>Nintendo Switch</td>
+<td>8d0d</td>
+<td>151.20</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>US</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>cac7cbaf</td>
+<td>0006d06b98385729</td>
+<td>2020-04-07 00:00:00</td>
+<td>2020-04-04</td>
+<td>Sony PlayStation 5 Bundle</td>
+<td>54ed</td>
+<td>1132.82</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>AU</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>6b0230bc</td>
+<td>00097279a2f46150</td>
+<td>2020-11-24 00:00:00</td>
+<td>2020-08-02</td>
+<td>Nintendo Switch</td>
+<td>8d0d</td>
+<td>33.89</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>TR</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Diamo un’occhiata a: - i tipi di dati del nostro dataset - la numerosita del dataset</p>
+<div id="5638bd31" class="cell" data-execution_count="83">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="83">
+<pre><code>(21864, 11)</code></pre>
+</div>
+</div>
+<div id="6f2ea67a" class="cell" data-execution_count="84">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>data.dtypes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="84">
+<pre><code>USER_ID                            object
+ORDER_ID                           object
+PURCHASE_TS                        object
+SHIP_TS                    datetime64[ns]
+PRODUCT_NAME                       object
+PRODUCT_ID                         object
+USD_PRICE                         float64
+PURCHASE_PLATFORM                  object
+MARKETING_CHANNEL                  object
+ACCOUNT_CREATION_METHOD            object
+COUNTRY_CODE                       object
+dtype: object</code></pre>
+</div>
+</div>
+<section id="il-framework-clean" class="level3" data-number="14.0.1">
+<h3 data-number="14.0.1" class="anchored" data-anchor-id="il-framework-clean"><span class="header-section-number">14.0.1</span> Il Framework CLEAN</h3>
+<center>
+<img src="./images/CLEAR_framework.jpg" width="500">
+</center>
+<p><strong>1. C - Conceptualize (Concettualizzare i dati)</strong> Prima di toccare qualsiasi dato, è fondamentale capire cosa si ha davanti. L’analista deve identificare tre elementi chiave: * <strong>La “Grana” (Grain):</strong> Cosa rappresenta ogni riga? In questo esempio, ogni riga è un ordine unico. * <strong>Metriche Chiave:</strong> I numeri importanti (es. prezzo in USD). * <strong>Dimensioni Chiave:</strong> Gli attributi per raggruppare i dati (es. tempo, nome prodotto, canale di marketing, paese). Questo passaggio aiuta a capire quali colonne sono prioritarie per rispondere alle domande con le quali interrogari i dati.</p>
+<p><strong>2. L - Locate Solvable Issues (Individuare problemi risolvibili)</strong> Questa fase riguarda la correzione di errori evidenti che non richiedono input esterni. Si crea un <strong>“Issues Log”</strong> (registro dei problemi) per tracciare tutto. * <strong>Tipi di problemi:</strong> Formati data inconsistenti, errori di ortografia, categorie nulle che possono essere etichettate come “Sconosciuto” (Unknown). * <strong>Best Practice:</strong> Non sovrascrivere mai i dati originali. Crea una copia o una nuova colonna (es. <code>date_cleaned</code>) finché non sei sicuro della modifica.</p>
+<p><strong>3. E - Evaluate Unsolvable Issues (Valutare problemi non risolvibili)</strong> Qui si affrontano problemi come dati mancanti (senza fonte di verità), outlier o violazioni della logica di business (es. data di spedizione antecedente alla data di acquisto). * <strong>Euristica:</strong> Se l’impatto del problema (magnitudine) è basso (es. meno del 20% dei dati), spesso è meglio documentarlo e lasciarlo così piuttosto che cancellare i dati. * <strong>Imputazione:</strong> Gli analisti dovrebbero evitare di “inventare” dati (imputazione) a meno che non ci sia una logica di business chiarissima, per non introdurre bias. Per quanto riguarda un Data Scientist, dipende da come i dati debbano essere impiegati.</p>
+<p><strong>4. A - Augment the Data (Aumentare/Arricchire i dati)</strong> Questa fase serve a rendere il dataset più flessibile e potente per l’analisi. * <strong>Cosa fare:</strong> Creare nuove colonne utili. Ad esempio, scomporre una data in colonne separate per Anno, Mese e Settimana per facilitare i filtri temporali. * <strong>Nuove Metriche:</strong> Calcolare metriche derivate, come il “tempo di spedizione” (differenza in giorni tra data spedizione e acquisto).</p>
+<p><strong>5. N - Note and Document (Annotare e Documentare)</strong> L’ultimo passo è finalizzare l’Issues Log. * Bisogna annotare non solo il problema, ma anche la <strong>magnitudine</strong> (quanti dati sono impattati in percentuale) e la <strong>decisione finale</strong> presa (es. “Risolto”, “Lasciato così”, “Documentato”). * Questo serve come “paper trail” (traccia scritta) per dimostrare trasparenza e professionalità agli stakeholder o ai manager che revisionano il progetto.</p>
+</section>
+<section id="conceptualize-concettualizzazione" class="level3" data-number="14.0.2">
+<h3 data-number="14.0.2" class="anchored" data-anchor-id="conceptualize-concettualizzazione"><span class="header-section-number">14.0.2</span> 1. 🇨 - Conceptualize (Concettualizzazione)</h3>
+<p>Fase preliminare di comprensione del dataset (nessuna modifica ai dati).</p>
+<ul>
+<li><p>Identificare la “Grana”: Verificare che ogni riga corrisponda a un ordine unico (order_id).</p></li>
+<li><p>Identificare le Metriche: Individuare la colonna numerica chiave (usd_price).</p></li>
+<li><p>Identificare le Dimensioni: Individuare le colonne categoriche principali (<code>purchase_timestamp</code>, <code>product_name</code>, <code>marketing_channel</code>, <code>country_code</code>, ecc.).</p></li>
+</ul>
+<div id="e1de2d2b" class="cell" data-execution_count="85">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>data.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="85">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">USER_ID</th>
+<th data-quarto-table-cell-role="th">ORDER_ID</th>
+<th data-quarto-table-cell-role="th">PURCHASE_TS</th>
+<th data-quarto-table-cell-role="th">SHIP_TS</th>
+<th data-quarto-table-cell-role="th">PRODUCT_NAME</th>
+<th data-quarto-table-cell-role="th">PRODUCT_ID</th>
+<th data-quarto-table-cell-role="th">USD_PRICE</th>
+<th data-quarto-table-cell-role="th">PURCHASE_PLATFORM</th>
+<th data-quarto-table-cell-role="th">MARKETING_CHANNEL</th>
+<th data-quarto-table-cell-role="th">ACCOUNT_CREATION_METHOD</th>
+<th data-quarto-table-cell-role="th">COUNTRY_CODE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>2c06175e</td>
+<td>0001328c3c220830</td>
+<td>2020-12-24 00:00:00</td>
+<td>2020-12-13</td>
+<td>Nintendo Switch</td>
+<td>e682</td>
+<td>168.00</td>
+<td>website</td>
+<td>affiliate</td>
+<td>unknown</td>
+<td>US</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>ee8e5bc2</td>
+<td>0002af7a5c6100772</td>
+<td>2020-10-01 00:00:00</td>
+<td>2020-09-21</td>
+<td>Nintendo Switch</td>
+<td>e682</td>
+<td>160.61</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>DE</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>9eb4efe0</td>
+<td>0002b8350e167074</td>
+<td>2020-04-21 00:00:00</td>
+<td>2020-02-16</td>
+<td>Nintendo Switch</td>
+<td>8d0d</td>
+<td>151.20</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>US</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>cac7cbaf</td>
+<td>0006d06b98385729</td>
+<td>2020-04-07 00:00:00</td>
+<td>2020-04-04</td>
+<td>Sony PlayStation 5 Bundle</td>
+<td>54ed</td>
+<td>1132.82</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>AU</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>6b0230bc</td>
+<td>00097279a2f46150</td>
+<td>2020-11-24 00:00:00</td>
+<td>2020-08-02</td>
+<td>Nintendo Switch</td>
+<td>8d0d</td>
+<td>33.89</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>TR</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="54f1c64e" class="cell" data-execution_count="88">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># informazioni globali sulla nostra tabella </span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>data.info()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 21864 entries, 0 to 21863
+Data columns (total 11 columns):
+ #   Column                   Non-Null Count  Dtype         
+---  ------                   --------------  -----         
+ 0   USER_ID                  21864 non-null  object        
+ 1   ORDER_ID                 21864 non-null  object        
+ 2   PURCHASE_TS              21864 non-null  object        
+ 3   SHIP_TS                  21864 non-null  datetime64[ns]
+ 4   PRODUCT_NAME             21864 non-null  object        
+ 5   PRODUCT_ID               21864 non-null  object        
+ 6   USD_PRICE                21859 non-null  float64       
+ 7   PURCHASE_PLATFORM        21864 non-null  object        
+ 8   MARKETING_CHANNEL        21781 non-null  object        
+ 9   ACCOUNT_CREATION_METHOD  21781 non-null  object        
+ 10  COUNTRY_CODE             21826 non-null  object        
+dtypes: datetime64[ns](1), float64(1), object(9)
+memory usage: 1.8+ MB</code></pre>
+</div>
+</div>
+<div id="41e0b6c9" class="cell" data-execution_count="87">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># descrizione delle metriche chiave </span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'USD_PRICE'</span>].describe()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="87">
+<pre><code>count    21859.000000
+mean       281.406583
+std        366.296410
+min          0.000000
+25%        126.000000
+50%        168.000000
+75%        357.000000
+max       3146.880000
+Name: USD_PRICE, dtype: float64</code></pre>
+</div>
+</div>
+</section>
+<section id="locate-solvable-issues-problemi-risolvibili" class="level3" data-number="14.0.3">
+<h3 data-number="14.0.3" class="anchored" data-anchor-id="locate-solvable-issues-problemi-risolvibili"><span class="header-section-number">14.0.3</span> 2. 🇱 - Locate Solvable Issues (Problemi Risolvibili)</h3>
+<p><em>Pulizia attiva degli errori evidenti e standardizzazione.</em> - Tipizzazione corretta delle colonne: - dobbiamo ancora assegnare il tipo giusto ad ognuno dei campi del dataset - <strong>Azione Pandas</strong>: usare i metodi <code>convert_dtypes()</code> e <code>astype()</code> - Standardizzazione Date: - La colonna <code>purchase_timestamp</code> ha formati misti, - <strong>Azione Pandas</strong>: Convertire la colonna in formato datetime (gestendo i formati misti) per uniformare tutto con <code>to_datetime()</code>.</p>
+<ul>
+<li>Pulizia Stringhe (Product Name):
+<ul>
+<li>Ci sono inconsistenze come “27in” vs “27 in”.</li>
+<li><strong>Azione Pandas</strong>: Standardizzare i valori nella colonna <code>product_name</code> (es. tramite un dizionario di mapping o replace) con <code>replace()</code>.</li>
+</ul></li>
+<li>Gestione Valori Mancanti (Categorie):
+<ul>
+<li>Le colonne <code>marketing_channel</code> e <code>account_creation_method</code> hanno valori vuoti (<code>null</code>).</li>
+<li><strong>Azione Pandas</strong>: Riempire i valori <code>NaN</code> con la stringa <code>'Unknown'</code> usando <code>fillna()</code>.</li>
+</ul></li>
+<li>Analisi Duplicati:
+<ul>
+<li>Controllo se ci sono <code>order_id</code> duplicati associati a <code>user_id</code> diversi.</li>
+<li><strong>Azione Pandas</strong>: Identificare i duplicati. Decidere come trattarli, usando <code>duplicated()</code>.</li>
+</ul></li>
+</ul>
+<div id="66908207" class="cell" data-execution_count="90">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># copia dei dati che puliremo </span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>data_copy <span class="op">=</span> data.copy()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="formattazione-dei-tipi-delle-colonne" class="level4" data-number="14.0.3.1">
+<h4 data-number="14.0.3.1" class="anchored" data-anchor-id="formattazione-dei-tipi-delle-colonne"><span class="header-section-number">14.0.3.1</span> Formattazione dei tipi delle colonne</h4>
+<p>Per prima cosa dobbiamo trovare il giusto tipe pe ogni campo del dataset. Possiamo utilizzare un metodo automatico di <em>pandas</em>, che permette, utilizzando le stesse regole inferenziali per il tipo dell’inizializzatore dell’oggetto <code>DataFrame</code>, di assegnare il miglior tipo di dato ai campi del dataset.</p>
+<div id="17fcf9e1" class="cell" data-execution_count="123">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>data_copy <span class="op">=</span> data_copy.convert_dtypes()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="099c9d25" class="cell" data-execution_count="125">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>data_copy.dtypes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="125">
+<pre><code>USER_ID                            object
+ORDER_ID                   string[python]
+PURCHASE_TS                datetime64[ns]
+SHIP_TS                    datetime64[ns]
+PRODUCT_NAME               string[python]
+PRODUCT_ID                         object
+USD_PRICE                         Float64
+PURCHASE_PLATFORM          string[python]
+MARKETING_CHANNEL          string[python]
+ACCOUNT_CREATION_METHOD    string[python]
+COUNTRY_CODE               string[python]
+dtype: object</code></pre>
+</div>
+</div>
+<p>Adesso mancano solamente i campi USER_ID e PRODUCT_ID. Cerchiamo di capire come fare. Probabilmente le regole di inferenza automatiche di <em>pandas</em> per il tipo, non hanno saputo come intervenire con queste colonne.</p>
+<p>Tuttavia, guardando al tipo di dato a mano, possiamo vedere come quei campi siano popolati da stringhe.</p>
+<div id="12cfd837" class="cell" data-execution_count="143">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>data_copy[<span class="st">'USER_ID'</span>] <span class="op">=</span> data_copy[<span class="st">'USER_ID'</span>].astype(<span class="st">'string'</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>data_copy[<span class="st">'PRODUCT_ID'</span>] <span class="op">=</span> data_copy[<span class="st">'PRODUCT_ID'</span>].astype(<span class="st">'string'</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>data_copy.dtypes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="143">
+<pre><code>USER_ID                    string[python]
+ORDER_ID                   string[python]
+PURCHASE_TS                datetime64[ns]
+SHIP_TS                    datetime64[ns]
+PRODUCT_NAME               string[python]
+PRODUCT_ID                 string[python]
+USD_PRICE                         Float64
+PURCHASE_PLATFORM          string[python]
+MARKETING_CHANNEL          string[python]
+ACCOUNT_CREATION_METHOD    string[python]
+COUNTRY_CODE               string[python]
+dtype: object</code></pre>
+</div>
+</div>
+</section>
+<section id="standardizzazione-delle-date" class="level4" data-number="14.0.3.2">
+<h4 data-number="14.0.3.2" class="anchored" data-anchor-id="standardizzazione-delle-date"><span class="header-section-number">14.0.3.2</span> Standardizzazione delle date</h4>
+<div id="ee6b6d30" class="cell" data-execution_count="144">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>data_copy.info()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 21864 entries, 0 to 21863
+Data columns (total 11 columns):
+ #   Column                   Non-Null Count  Dtype         
+---  ------                   --------------  -----         
+ 0   USER_ID                  21864 non-null  string        
+ 1   ORDER_ID                 21864 non-null  string        
+ 2   PURCHASE_TS              21853 non-null  datetime64[ns]
+ 3   SHIP_TS                  21864 non-null  datetime64[ns]
+ 4   PRODUCT_NAME             21864 non-null  string        
+ 5   PRODUCT_ID               21864 non-null  string        
+ 6   USD_PRICE                21859 non-null  Float64       
+ 7   PURCHASE_PLATFORM        21864 non-null  string        
+ 8   MARKETING_CHANNEL        21781 non-null  string        
+ 9   ACCOUNT_CREATION_METHOD  21781 non-null  string        
+ 10  COUNTRY_CODE             21826 non-null  string        
+dtypes: Float64(1), datetime64[ns](2), string(8)
+memory usage: 1.9 MB</code></pre>
+</div>
+</div>
+<p>Nel caso delle date, dobbiamo fare piu attenzione. Nonostante automatiamente <em>pandas</em> abbia riconosciuto il giusto tipo, potremo voler specificare una formattazione preferita per i dati. Inoltre, nel caso in cui ci siano degli errori nella data, vorremo sostituire questi valori con il simbolo <code>NaT</code> (’Not a Time).</p>
+<div id="2015ce5a" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># formattazione delle colonne con date, coerce in caso di data errata, sostituisce con NaT </span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>data_copy[<span class="st">'PURCHASE_TS'</span>] <span class="op">=</span> pd.to_datetime(data_copy[<span class="st">'PURCHASE_TS'</span>], errors<span class="op">=</span><span class="st">'coerce'</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>data_copy[<span class="st">'SHIP_TS'</span>] <span class="op">=</span> pd.to_datetime(data_copy[<span class="st">'SHIP_TS'</span>], errors<span class="op">=</span><span class="st">'coerce'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Possiamo notare come le date adesso appaiano nel formato desiderato: ‘YYYY-MM-DD’.</p>
+<div id="bac5bc4d" class="cell" data-execution_count="96">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>data_copy.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="96">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">USER_ID</th>
+<th data-quarto-table-cell-role="th">ORDER_ID</th>
+<th data-quarto-table-cell-role="th">PURCHASE_TS</th>
+<th data-quarto-table-cell-role="th">SHIP_TS</th>
+<th data-quarto-table-cell-role="th">PRODUCT_NAME</th>
+<th data-quarto-table-cell-role="th">PRODUCT_ID</th>
+<th data-quarto-table-cell-role="th">USD_PRICE</th>
+<th data-quarto-table-cell-role="th">PURCHASE_PLATFORM</th>
+<th data-quarto-table-cell-role="th">MARKETING_CHANNEL</th>
+<th data-quarto-table-cell-role="th">ACCOUNT_CREATION_METHOD</th>
+<th data-quarto-table-cell-role="th">COUNTRY_CODE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>2c06175e</td>
+<td>0001328c3c220830</td>
+<td>2020-12-24</td>
+<td>2020-12-13</td>
+<td>Nintendo Switch</td>
+<td>e682</td>
+<td>168.00</td>
+<td>website</td>
+<td>affiliate</td>
+<td>unknown</td>
+<td>US</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>ee8e5bc2</td>
+<td>0002af7a5c6100772</td>
+<td>2020-10-01</td>
+<td>2020-09-21</td>
+<td>Nintendo Switch</td>
+<td>e682</td>
+<td>160.61</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>DE</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>9eb4efe0</td>
+<td>0002b8350e167074</td>
+<td>2020-04-21</td>
+<td>2020-02-16</td>
+<td>Nintendo Switch</td>
+<td>8d0d</td>
+<td>151.20</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>US</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>cac7cbaf</td>
+<td>0006d06b98385729</td>
+<td>2020-04-07</td>
+<td>2020-04-04</td>
+<td>Sony PlayStation 5 Bundle</td>
+<td>54ed</td>
+<td>1132.82</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>AU</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>6b0230bc</td>
+<td>00097279a2f46150</td>
+<td>2020-11-24</td>
+<td>2020-08-02</td>
+<td>Nintendo Switch</td>
+<td>8d0d</td>
+<td>33.89</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>TR</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Per concludere con i campi di date, non rimane che controllare se ci sono dei dati mancanti.</p>
+<div id="194af773" class="cell" data-execution_count="147">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>data_copy[data_copy[<span class="st">'SHIP_TS'</span>].isna()].shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="147">
+<pre><code>(0, 11)</code></pre>
+</div>
+</div>
+<div id="c7f51d4e" class="cell" data-execution_count="148">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>data_copy[data_copy[<span class="st">'PURCHASE_TS'</span>].isna()]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="148">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">USER_ID</th>
+<th data-quarto-table-cell-role="th">ORDER_ID</th>
+<th data-quarto-table-cell-role="th">PURCHASE_TS</th>
+<th data-quarto-table-cell-role="th">SHIP_TS</th>
+<th data-quarto-table-cell-role="th">PRODUCT_NAME</th>
+<th data-quarto-table-cell-role="th">PRODUCT_ID</th>
+<th data-quarto-table-cell-role="th">USD_PRICE</th>
+<th data-quarto-table-cell-role="th">PURCHASE_PLATFORM</th>
+<th data-quarto-table-cell-role="th">MARKETING_CHANNEL</th>
+<th data-quarto-table-cell-role="th">ACCOUNT_CREATION_METHOD</th>
+<th data-quarto-table-cell-role="th">COUNTRY_CODE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">1047</th>
+<td>a5298a4d</td>
+<td>0dda212aaea69940</td>
+<td>NaT</td>
+<td>2019-07-08</td>
+<td>JBL Quantum 100 Gaming Headset</td>
+<td>ab0f</td>
+<td>21.96</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>FR</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1251</th>
+<td>e749986a</td>
+<td>1041360a9a997694</td>
+<td>NaT</td>
+<td>2020-11-03</td>
+<td>27in 4k Gaming Monitor</td>
+<td>891b</td>
+<td>480.0</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>US</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">5846</th>
+<td>a81bb521</td>
+<td>4cd9ab100d971208</td>
+<td>NaT</td>
+<td>2021-01-11</td>
+<td>Nintendo Switch</td>
+<td>8d0d</td>
+<td>120.26</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>IE</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">7363</th>
+<td>7c1b4739</td>
+<td>60d6f8dd5dc53016</td>
+<td>NaT</td>
+<td>2020-06-15</td>
+<td>JBL Quantum 100 Gaming Headset</td>
+<td>ab0f</td>
+<td>21.46</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>ES</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">9717</th>
+<td>1db9d78a</td>
+<td>7ed14bf67eb15182</td>
+<td>NaT</td>
+<td>2021-01-03</td>
+<td>Sony PlayStation 5 Bundle</td>
+<td>54ed</td>
+<td>1800.0</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>US</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">10011</th>
+<td>81d147e3</td>
+<td>829839cc52155359</td>
+<td>NaT</td>
+<td>2021-11-16</td>
+<td>JBL Quantum 100 Gaming Headset</td>
+<td>4db1</td>
+<td>14.29</td>
+<td>mobile app</td>
+<td>direct</td>
+<td>desktop</td>
+<td>QA</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">10890</th>
+<td>6dcd78e9</td>
+<td>8d6795b3b1447377</td>
+<td>NaT</td>
+<td>2020-02-20</td>
+<td>27in 4k Gaming Monitor</td>
+<td>891b</td>
+<td>408.0</td>
+<td>website</td>
+<td>direct</td>
+<td>mobile</td>
+<td>US</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">11853</th>
+<td>2fa9f33d</td>
+<td>99d824517da22388</td>
+<td>NaT</td>
+<td>2019-04-11</td>
+<td>JBL Quantum 100 Gaming Headset</td>
+<td>ab0f</td>
+<td>21.19</td>
+<td>website</td>
+<td>direct</td>
+<td>mobile</td>
+<td>JP</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">14576</th>
+<td>43bbad06</td>
+<td>ba7f92bd22730500</td>
+<td>NaT</td>
+<td>2019-03-31</td>
+<td>JBL Quantum 100 Gaming Headset</td>
+<td>ab0f</td>
+<td>24.0</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>US</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">16163</th>
+<td>b313cea5</td>
+<td>c9e0aea0d9a75871</td>
+<td>NaT</td>
+<td>2019-05-18</td>
+<td>JBL Quantum 100 Gaming Headset</td>
+<td>ab0f</td>
+<td>19.2</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>US</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">20725</th>
+<td>67f8050b</td>
+<td>f4de38506b644875</td>
+<td>NaT</td>
+<td>2019-01-17</td>
+<td>JBL Quantum 100 Gaming Headset</td>
+<td>ab0f</td>
+<td>25.69</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>GB</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Notiamo come manchino dei dati nel campo <code>PURCHASE_TS</code>. Scriviamo una fuzione che utilizzeremo anche in seguito, per calcolare la quantita di righe del dataset che soffrono di questo problema.</p>
+<div id="7d9a5373" class="cell" data-execution_count="225">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> percent(data):</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">len</span>(data)<span class="op">/</span><span class="bu">len</span>(data_copy)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="e1464dc0" class="cell" data-execution_count="226">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>missing_pts <span class="op">=</span> percent(data_copy[data_copy[<span class="st">'PURCHASE_TS'</span>].isna()])</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(missing_pts)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.0005031101353823637</code></pre>
+</div>
+</div>
+</section>
+<section id="formattazione-dei-nomi-dei-prodotti" class="level4" data-number="14.0.3.3">
+<h4 data-number="14.0.3.3" class="anchored" data-anchor-id="formattazione-dei-nomi-dei-prodotti"><span class="header-section-number">14.0.3.3</span> Formattazione dei nomi dei prodotti</h4>
+<div id="5e6be6e1" class="cell" data-execution_count="100">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>data_copy.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="100">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">USER_ID</th>
+<th data-quarto-table-cell-role="th">ORDER_ID</th>
+<th data-quarto-table-cell-role="th">PURCHASE_TS</th>
+<th data-quarto-table-cell-role="th">SHIP_TS</th>
+<th data-quarto-table-cell-role="th">PRODUCT_NAME</th>
+<th data-quarto-table-cell-role="th">PRODUCT_ID</th>
+<th data-quarto-table-cell-role="th">USD_PRICE</th>
+<th data-quarto-table-cell-role="th">PURCHASE_PLATFORM</th>
+<th data-quarto-table-cell-role="th">MARKETING_CHANNEL</th>
+<th data-quarto-table-cell-role="th">ACCOUNT_CREATION_METHOD</th>
+<th data-quarto-table-cell-role="th">COUNTRY_CODE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>2c06175e</td>
+<td>0001328c3c220830</td>
+<td>2020-12-24</td>
+<td>2020-12-13</td>
+<td>Nintendo Switch</td>
+<td>e682</td>
+<td>168.00</td>
+<td>website</td>
+<td>affiliate</td>
+<td>unknown</td>
+<td>US</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>ee8e5bc2</td>
+<td>0002af7a5c6100772</td>
+<td>2020-10-01</td>
+<td>2020-09-21</td>
+<td>Nintendo Switch</td>
+<td>e682</td>
+<td>160.61</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>DE</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>9eb4efe0</td>
+<td>0002b8350e167074</td>
+<td>2020-04-21</td>
+<td>2020-02-16</td>
+<td>Nintendo Switch</td>
+<td>8d0d</td>
+<td>151.20</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>US</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>cac7cbaf</td>
+<td>0006d06b98385729</td>
+<td>2020-04-07</td>
+<td>2020-04-04</td>
+<td>Sony PlayStation 5 Bundle</td>
+<td>54ed</td>
+<td>1132.82</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>AU</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>6b0230bc</td>
+<td>00097279a2f46150</td>
+<td>2020-11-24</td>
+<td>2020-08-02</td>
+<td>Nintendo Switch</td>
+<td>8d0d</td>
+<td>33.89</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>TR</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Guardando i nomi dei prodotti che e possibile acquistare sul sito, si nota un problema. I due nomi: <code>27in 4K gaming monitor</code> e <code>27inches 4k gaming monitor</code> fanno riferimento allo stesso prodotto. Tuttavia c’e un errore di battitua che possiamo correggere.</p>
+<div id="c825d3c8" class="cell" data-execution_count="101">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>data_copy[<span class="st">'PRODUCT_NAME'</span>].unique()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="101">
+<pre><code>array(['Nintendo Switch', 'Sony PlayStation 5 Bundle',
+       '27in 4K gaming monitor', 'JBL Quantum 100 Gaming Headset',
+       'Dell Gaming Mouse', 'Acer Nitro V Gaming Laptop',
+       'Lenovo IdeaPad Gaming 3', 'Razer Pro Gaming Headset',
+       '27inches 4k gaming monitor'], dtype=object)</code></pre>
+</div>
+</div>
+<div id="097ecd86" class="cell" data-execution_count="102">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># operazione di replace tramite dizionario di mapping</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>product_mapping <span class="op">=</span> {</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'27in 4K gaming monitor'</span>: <span class="st">'27in 4k Gaming Monitor'</span>,</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'27inches 4k gaming monitor'</span>: <span class="st">'27in 4k Gaming Monitor'</span>,</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>data_copy[<span class="st">'PRODUCT_NAME'</span>] <span class="op">=</span> data_copy[<span class="st">'PRODUCT_NAME'</span>].replace(product_mapping)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="31a769ac" class="cell" data-execution_count="103">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># correzione avvenuta:</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>data_copy[<span class="st">'PRODUCT_NAME'</span>].unique()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="103">
+<pre><code>array(['Nintendo Switch', 'Sony PlayStation 5 Bundle',
+       '27in 4k Gaming Monitor', 'JBL Quantum 100 Gaming Headset',
+       'Dell Gaming Mouse', 'Acer Nitro V Gaming Laptop',
+       'Lenovo IdeaPad Gaming 3', 'Razer Pro Gaming Headset'],
+      dtype=object)</code></pre>
+</div>
+</div>
+</section>
+<section id="valori-mancanti-in-ogni-campo" class="level4" data-number="14.0.3.4">
+<h4 data-number="14.0.3.4" class="anchored" data-anchor-id="valori-mancanti-in-ogni-campo"><span class="header-section-number">14.0.3.4</span> Valori Mancanti in ogni campo</h4>
+<section id="product_id" class="level5" data-number="14.0.3.4.1">
+<h5 data-number="14.0.3.4.1" class="anchored" data-anchor-id="product_id"><span class="header-section-number">14.0.3.4.1</span> PRODUCT_ID</h5>
+<div id="766f667a" class="cell" data-execution_count="149">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>data_copy[<span class="st">'PRODUCT_ID'</span>].unique() <span class="co"># tutto ok </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="149">
+<pre><code>&lt;StringArray&gt;
+['e682', '8d0d', '54ed', '891b', 'ab0f', 'e7e6', '2997', 'b5f7', '8e5d',
+ '8315', 'f81e', '5142', '22ea', '9ef0', '0c5a', '8d4f', '04ac', '1238',
+ 'b0ee', '7416', 'a6be', '2a50', 'ab5d', '7d63', 'df85', '0d23', '604c',
+ '6b8d', '7f86', 'afbf', 'f5ca', '4c58', '4db1', '03ca', 'da12', 'e22d',
+ '640d', '7599', '8364', '97c6', '24c1', '7388', 'ae96', '12b1', 'f443',
+ '4f26']
+Length: 46, dtype: string</code></pre>
+</div>
+</div>
+</section>
+<section id="usd_price" class="level5" data-number="14.0.3.4.2">
+<h5 data-number="14.0.3.4.2" class="anchored" data-anchor-id="usd_price"><span class="header-section-number">14.0.3.4.2</span> USD_PRICE</h5>
+<p>Se ordiniamo l’array dei valori assunti nel campo USD_PRICE vediamo come ci siano 2 problemi diversi in questa colonna: - il valore 0 - il valore <em>nan</em></p>
+<p>Affrontiamo questi problemi unno per volta.</p>
+<div id="88f2aee9" class="cell" data-execution_count="239">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>np.sort(data_copy[<span class="st">'USD_PRICE'</span>].unique())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="239">
+<pre><code>array([   0.  ,    6.11,    6.32, ..., 2509.67, 3146.88,     nan],
+      shape=(3634,))</code></pre>
+</div>
+</div>
+<div id="3ffd5441" class="cell" data-execution_count="150">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>data_copy[data_copy[<span class="st">'USD_PRICE'</span>].isna()]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="150">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">USER_ID</th>
+<th data-quarto-table-cell-role="th">ORDER_ID</th>
+<th data-quarto-table-cell-role="th">PURCHASE_TS</th>
+<th data-quarto-table-cell-role="th">SHIP_TS</th>
+<th data-quarto-table-cell-role="th">PRODUCT_NAME</th>
+<th data-quarto-table-cell-role="th">PRODUCT_ID</th>
+<th data-quarto-table-cell-role="th">USD_PRICE</th>
+<th data-quarto-table-cell-role="th">PURCHASE_PLATFORM</th>
+<th data-quarto-table-cell-role="th">MARKETING_CHANNEL</th>
+<th data-quarto-table-cell-role="th">ACCOUNT_CREATION_METHOD</th>
+<th data-quarto-table-cell-role="th">COUNTRY_CODE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">1190</th>
+<td>f2939b5c</td>
+<td>0fa89eecc5d102514</td>
+<td>2020-08-20</td>
+<td>2020-05-26</td>
+<td>Dell Gaming Mouse</td>
+<td>0c5a</td>
+<td>&lt;NA&gt;</td>
+<td>mobile app</td>
+<td>email</td>
+<td>desktop</td>
+<td>GH</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">13282</th>
+<td>45913313</td>
+<td>ab0b1a9c91a1197</td>
+<td>2019-12-25</td>
+<td>2019-12-28</td>
+<td>JBL Quantum 100 Gaming Headset</td>
+<td>2997</td>
+<td>&lt;NA&gt;</td>
+<td>mobile app</td>
+<td>email</td>
+<td>mobile</td>
+<td>KE</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">14189</th>
+<td>1c173578</td>
+<td>b6a132d331c14466</td>
+<td>2020-09-01</td>
+<td>2020-09-04</td>
+<td>Dell Gaming Mouse</td>
+<td>f81e</td>
+<td>&lt;NA&gt;</td>
+<td>mobile app</td>
+<td>direct</td>
+<td>desktop</td>
+<td>KE</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">20044</th>
+<td>7c364c50</td>
+<td>eee5663869153075</td>
+<td>2020-07-11</td>
+<td>2020-07-12</td>
+<td>Dell Gaming Mouse</td>
+<td>f81e</td>
+<td>&lt;NA&gt;</td>
+<td>mobile app</td>
+<td>email</td>
+<td>mobile</td>
+<td>VE</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">20227</th>
+<td>70565cdf</td>
+<td>f063ed5ec8848400</td>
+<td>2021-01-08</td>
+<td>2021-01-10</td>
+<td>Dell Gaming Mouse</td>
+<td>f81e</td>
+<td>&lt;NA&gt;</td>
+<td>mobile app</td>
+<td>email</td>
+<td>desktop</td>
+<td>BO</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Possiamo imputare il valore che dobbiamo sostituire in queste posizioni in base al prodotto acquistato, specificato nella relativa colonna. Indagando, ci rendiamo conto come questa, nonostante fosse una buona idea, non puo essere applicata. Infatti, a seconda della transazione, il prezzo cambia di volta in volta.</p>
+<div id="4088f430" class="cell" data-execution_count="162">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>data_copy[<span class="st">'USD_PRICE'</span>][data_copy[<span class="st">'PRODUCT_NAME'</span>] <span class="op">==</span> <span class="st">'Dell Gaming Mouse'</span>].unique()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="162">
+<pre><code>&lt;FloatingArray&gt;
+[50.09, 49.98, 46.58, 57.07, 64.25, 55.14, 57.55, 50.68, 53.09, 53.75,
+ ...
+ 53.16, 37.61,  48.5, 49.53, 50.73, 49.63, 62.59, 51.19, 52.26, 38.65]
+Length: 189, dtype: Float64</code></pre>
+</div>
+</div>
+<p>Un altro fattore da verificare e la presenza di transazione a costo 0. Questo tipo di transazioni rappresenta un errore all’interno dei nostri dati, nessuna transazione puo essere venuta senza che un presso sia stato pagato.</p>
+<div id="1f4b32ac" class="cell" data-execution_count="172">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="kw">in</span> data_copy[<span class="st">'USD_PRICE'</span>].unique()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="172">
+<pre><code>True</code></pre>
+</div>
+</div>
+<div id="727e6c91" class="cell" data-execution_count="234">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>data_copy[<span class="st">'USD_PRICE'</span>].unique().<span class="bu">min</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="234">
+<pre><code>np.float64(0.0)</code></pre>
+</div>
+</div>
+<div id="942dd747" class="cell" data-execution_count="177">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>data_copy[data_copy[<span class="st">'USD_PRICE'</span>] <span class="op">==</span> <span class="dv">0</span>].shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="177">
+<pre><code>(29, 11)</code></pre>
+</div>
+</div>
+<p>Non avendo altre fonti per imputare i nostri dati, decidiamo di lasciar stare queste righe. Calcoliamo quanto questi problemi siano rilevanti in percentuale della numerosita del campione che abbiamo.</p>
+<div id="a277462a" class="cell" data-execution_count="240">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>missing_usd_na <span class="op">=</span> percent(data_copy[data_copy[<span class="st">'USD_PRICE'</span>].isna()])</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(missing_usd_na)</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>missing_usd_zero <span class="op">=</span> percent(data_copy[data_copy[<span class="st">'USD_PRICE'</span>] <span class="op">==</span> <span class="dv">0</span>])</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(missing_usd_zero)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.00022868642517380168
+0.0013263812660080497</code></pre>
+</div>
+</div>
+<p>Definiamo una funzione apposita per snellire il lavoro che faremo sui restanti campi.</p>
+<div id="4264b1d0" class="cell" data-execution_count="178">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> df_isna(df, col):</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(df[col].unique())</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df[col][df[col].isna()]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="purchase_platform" class="level5" data-number="14.0.3.4.3">
+<h5 data-number="14.0.3.4.3" class="anchored" data-anchor-id="purchase_platform"><span class="header-section-number">14.0.3.4.3</span> PURCHASE_PLATFORM</h5>
+<div id="ee02635b" class="cell" data-execution_count="179">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>df_isna(data_copy, <span class="st">'PURCHASE_PLATFORM'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;StringArray&gt;
+['website', 'mobile app']
+Length: 2, dtype: string</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="179">
+<pre><code>Series([], Name: PURCHASE_PLATFORM, dtype: string)</code></pre>
+</div>
+</div>
+</section>
+<section id="marketing_channel-account_creation_method" class="level5" data-number="14.0.3.4.4">
+<h5 data-number="14.0.3.4.4" class="anchored" data-anchor-id="marketing_channel-account_creation_method"><span class="header-section-number">14.0.3.4.4</span> MARKETING_CHANNEL, ACCOUNT_CREATION_METHOD</h5>
+<p>Notiamo come manchino 83 valori per il campo MARKETING_CHANNEL e ACCOUNT_CREATION_METHOD.</p>
+<p>Per quanto riguarda il campo ACCOUNT_CREATION_METHOD non possiamo fare niente, in mancanza delle risorse necessarie per poter sostituire i valori mancanti. Per la colonna MARKETING_CHANNEL possiamo sostituire i valori nulli con <code>'unknown'</code>.</p>
+<div id="0d40a865" class="cell" data-execution_count="180">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>df_isna(data_copy, <span class="st">'MARKETING_CHANNEL'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;StringArray&gt;
+['affiliate', 'direct', 'email', 'social media', &lt;NA&gt;, 'unknown']
+Length: 6, dtype: string</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="180">
+<pre><code>243      &lt;NA&gt;
+563      &lt;NA&gt;
+783      &lt;NA&gt;
+1495     &lt;NA&gt;
+1642     &lt;NA&gt;
+         ... 
+19854    &lt;NA&gt;
+19929    &lt;NA&gt;
+20114    &lt;NA&gt;
+20277    &lt;NA&gt;
+20999    &lt;NA&gt;
+Name: MARKETING_CHANNEL, Length: 83, dtype: string</code></pre>
+</div>
+</div>
+<div id="f8dbbb89" class="cell" data-execution_count="244">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>missing_markchan <span class="op">=</span> <span class="dv">83</span><span class="op">/</span><span class="bu">len</span>(data_copy)</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(missing_markchan)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.003796194657885108</code></pre>
+</div>
+</div>
+<p>Guardando i dati, si nota come sia presente il valore <code>unknown</code> nel campo MARKETING_CHANNEL. Sostituiamo i valori mancanti (<code>&lt;NA&gt;</code>) con questo valore.</p>
+<div id="43f04513" class="cell" data-execution_count="185">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sostituzione con unknown</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>data_copy[<span class="st">'MARKETING_CHANNEL'</span>] <span class="op">=</span> data_copy[<span class="st">'MARKETING_CHANNEL'</span>].fillna(<span class="st">'unknown'</span>)</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>df_isna(data_copy, <span class="st">'MARKETING_CHANNEL'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;StringArray&gt;
+['affiliate', 'direct', 'email', 'social media', 'unknown']
+Length: 5, dtype: string</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="185">
+<pre><code>Series([], Name: MARKETING_CHANNEL, dtype: string)</code></pre>
+</div>
+</div>
+<p>Per quanto riguarda il campo ACCOUNT_CREATION_METHOD, di nuovo, ci troviamo a non avere le fonte necessarie per poter sostituire i valori mancanti in maniera informata.</p>
+<div id="32aa2002" class="cell" data-execution_count="186">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>df_isna(data_copy, <span class="st">'ACCOUNT_CREATION_METHOD'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;StringArray&gt;
+['unknown', 'desktop', 'mobile', 'tablet', &lt;NA&gt;, 'tv']
+Length: 6, dtype: string</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="186">
+<pre><code>243      &lt;NA&gt;
+563      &lt;NA&gt;
+783      &lt;NA&gt;
+1495     &lt;NA&gt;
+1642     &lt;NA&gt;
+         ... 
+19854    &lt;NA&gt;
+19929    &lt;NA&gt;
+20114    &lt;NA&gt;
+20277    &lt;NA&gt;
+20999    &lt;NA&gt;
+Name: ACCOUNT_CREATION_METHOD, Length: 83, dtype: string</code></pre>
+</div>
+</div>
+<div id="ca3a18c1" class="cell" data-execution_count="245">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>missing_acc_cr <span class="op">=</span> <span class="dv">83</span><span class="op">/</span><span class="bu">len</span>(data_copy)</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(missing_acc_cr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.003796194657885108</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="valori-duplicati" class="level4" data-number="14.0.3.5">
+<h4 data-number="14.0.3.5" class="anchored" data-anchor-id="valori-duplicati"><span class="header-section-number">14.0.3.5</span> Valori duplicati</h4>
+<div id="98f5bbe3" class="cell" data-execution_count="203">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>data_copy.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="203">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">USER_ID</th>
+<th data-quarto-table-cell-role="th">ORDER_ID</th>
+<th data-quarto-table-cell-role="th">PURCHASE_TS</th>
+<th data-quarto-table-cell-role="th">SHIP_TS</th>
+<th data-quarto-table-cell-role="th">PRODUCT_NAME</th>
+<th data-quarto-table-cell-role="th">PRODUCT_ID</th>
+<th data-quarto-table-cell-role="th">USD_PRICE</th>
+<th data-quarto-table-cell-role="th">PURCHASE_PLATFORM</th>
+<th data-quarto-table-cell-role="th">MARKETING_CHANNEL</th>
+<th data-quarto-table-cell-role="th">ACCOUNT_CREATION_METHOD</th>
+<th data-quarto-table-cell-role="th">COUNTRY_CODE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>2c06175e</td>
+<td>0001328c3c220830</td>
+<td>2020-12-24</td>
+<td>2020-12-13</td>
+<td>Nintendo Switch</td>
+<td>e682</td>
+<td>168.0</td>
+<td>website</td>
+<td>affiliate</td>
+<td>unknown</td>
+<td>US</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>ee8e5bc2</td>
+<td>0002af7a5c6100772</td>
+<td>2020-10-01</td>
+<td>2020-09-21</td>
+<td>Nintendo Switch</td>
+<td>e682</td>
+<td>160.61</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>DE</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>9eb4efe0</td>
+<td>0002b8350e167074</td>
+<td>2020-04-21</td>
+<td>2020-02-16</td>
+<td>Nintendo Switch</td>
+<td>8d0d</td>
+<td>151.2</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>US</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>cac7cbaf</td>
+<td>0006d06b98385729</td>
+<td>2020-04-07</td>
+<td>2020-04-04</td>
+<td>Sony PlayStation 5 Bundle</td>
+<td>54ed</td>
+<td>1132.82</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>AU</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>6b0230bc</td>
+<td>00097279a2f46150</td>
+<td>2020-11-24</td>
+<td>2020-08-02</td>
+<td>Nintendo Switch</td>
+<td>8d0d</td>
+<td>33.89</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>TR</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Controllo se ci sono <code>order_id</code> duplicati associati a <code>user_id</code> diversi</p>
+<div id="1c41bc6a" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co"># verifica</span></span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>dupl <span class="op">=</span> data_copy.duplicated([<span class="st">'ORDER_ID'</span>]) <span class="co"># maschera per i valori duplicati </span></span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>data_dupl_ord <span class="op">=</span> data_copy[[<span class="st">'USER_ID'</span>, <span class="st">'ORDER_ID'</span>]][dupl] <span class="co"># sotto-frame dei valori duplicati  </span></span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(data_dupl_ord[<span class="st">'USER_ID'</span>].unique()) <span class="op">==</span> <span class="bu">len</span>(data_dupl_ord[<span class="st">'ORDER_ID'</span>].unique()) <span class="co"># verifica della richiesta</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="216">
+<pre><code>False</code></pre>
+</div>
+</div>
+<p>Utilizziamo la funzione <code>nunique()</code> che permette di contare il numero di elementi unici all’interno del dataset:</p>
+<div id="99acb9e8" class="cell" data-execution_count="248">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>n_unique_val <span class="op">=</span> data_copy[<span class="st">'USER_ID'</span>].nunique()</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>not_unique <span class="op">=</span> <span class="bu">len</span>(data_copy) <span class="op">-</span> data_copy[<span class="st">'USER_ID'</span>].nunique()</span>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(not_unique)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2013</code></pre>
+</div>
+</div>
+<div id="3d3fcd5b" class="cell" data-execution_count="249">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>n_duplicate <span class="op">=</span> not_unique<span class="op">/</span><span class="bu">len</span>(data_copy)</span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(n_duplicate)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.09206915477497256</code></pre>
+</div>
+</div>
+<p>Adesso dobbiamo individuare quali sono le righe che hanno questo problema.</p>
+<p>Il codice che segue: 1. raggruppa i dati per ORDER_ID in <em>sotto-DataFrame</em>, 2. scarte i gruppi nei quali ci sono piu di due USER_ID diversi.</p>
+<div id="d889f65e" class="cell" data-execution_count="217">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>conflicts <span class="op">=</span> data_copy.groupby(<span class="st">'ORDER_ID'</span>).<span class="bu">filter</span>(<span class="kw">lambda</span> x: x[<span class="st">'USER_ID'</span>].nunique() <span class="op">&gt;</span> <span class="dv">1</span>)</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(conflicts)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        USER_ID           ORDER_ID PURCHASE_TS    SHIP_TS     PRODUCT_NAME  \
+18909  52e2062d   e44ebe4eed936564  2021-02-10 2021-02-11  Nintendo Switch   
+18910   7d98183   e44ebe4eed936564  2021-02-10 2021-02-11  Nintendo Switch   
+18915  18d41108   e45770836b313082  2021-02-18 2021-02-21  Nintendo Switch   
+18916   d415794   e45770836b313082  2021-02-18 2021-02-21  Nintendo Switch   
+18986  ee4b40dd  e4f2373fbcb100655  2021-02-25 2021-02-26  Nintendo Switch   
+...         ...                ...         ...        ...              ...   
+21735   b0a2896   fecc9d6766231653  2021-02-22 2021-02-25  Nintendo Switch   
+21742  e69c1f1e   fede5c24b0797422  2021-02-23 2021-02-25  Nintendo Switch   
+21743   9c12903   fede5c24b0797422  2021-02-23 2021-02-25  Nintendo Switch   
+21751  ebf6f56d   fef061c2a1499684  2021-02-06 2021-02-09  Nintendo Switch   
+21752   f6f3685   fef061c2a1499684  2021-02-06 2021-02-09  Nintendo Switch   
+
+      PRODUCT_ID  USD_PRICE PURCHASE_PLATFORM MARKETING_CHANNEL  \
+18909       e682     102.88           website            direct   
+18910       e682     102.88           website            direct   
+18915       e682      168.0           website            direct   
+18916       e682      168.0           website            direct   
+18986       e682     150.66           website            direct   
+...          ...        ...               ...               ...   
+21735       8d0d      184.9           website            direct   
+21742       8d0d      142.8           website            direct   
+21743       8d0d      142.8           website            direct   
+21751       e682     164.42           website            direct   
+21752       e682     164.42           website            direct   
+
+      ACCOUNT_CREATION_METHOD COUNTRY_CODE  
+18909                 desktop           MX  
+18910                 desktop           MX  
+18915                 desktop           US  
+18916                 desktop           US  
+18986                 desktop           RU  
+...                       ...          ...  
+21735                 desktop           GB  
+21742                 desktop           US  
+21743                 desktop           US  
+21751                 desktop           ES  
+21752                 desktop           ES  
+
+[216 rows x 11 columns]</code></pre>
+</div>
+</div>
+<p>Nonostante questo problema colpisca il 10% dei nostri dati, non abbiamo modo di risolverlo, in mancanza di una fonte di dati ufficiale che ci aiuti a correggere i dati corrotti.</p>
+</section>
+<section id="problemi-di-logica-di-spedizione" class="level4" data-number="14.0.3.6">
+<h4 data-number="14.0.3.6" class="anchored" data-anchor-id="problemi-di-logica-di-spedizione"><span class="header-section-number">14.0.3.6</span> Problemi di Logica di Spedizione</h4>
+<p>Infine notiamo come ci siano delle entrate in cui SHIP_TS e minore di PURCHASE_TS. Anche in questo caso il meglio che possiamo fare e additare l’errore. Non abbiamo fonti valide per sostituire i dati.</p>
+<div id="204c20d9" class="cell" data-execution_count="252">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>invalid_shippig_logic <span class="op">=</span> data_copy[<span class="st">'SHIP_TS'</span>] <span class="op">&lt;</span> data_copy[<span class="st">'PURCHASE_TS'</span>]</span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>num_invalid_logic <span class="op">=</span> invalid_shippig_logic.<span class="bu">sum</span>()<span class="op">/</span><span class="bu">len</span>(data_copy)</span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(num_invalid_logic)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.09115440907427735</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="evaluate-unsolvable-issues-valutare-problemi-non-risolvibili" class="level3" data-number="14.0.4">
+<h3 data-number="14.0.4" class="anchored" data-anchor-id="evaluate-unsolvable-issues-valutare-problemi-non-risolvibili"><span class="header-section-number">14.0.4</span> 3. 🇪 - Evaluate Unsolvable Issues (Valutare problemi non risolvibili)</h3>
+<div id="71331c66" class="cell" data-execution_count="196">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb77"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">--- STEP E: Evaluate Unsolvable Issues ---"</span>)</span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a><span class="co"># E1. Controllo Prezzi a 0 o Date Mancanti</span></span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>missing_dates_count <span class="op">=</span> data_copy[<span class="st">'PURCHASE_TS'</span>].isna().<span class="bu">sum</span>()</span>
+<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a>zero_price_count <span class="op">=</span> (data_copy[<span class="st">'USD_PRICE'</span>] <span class="op">==</span> <span class="dv">0</span>).<span class="bu">sum</span>()</span>
+<span id="cb77-6"><a href="#cb77-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-7"><a href="#cb77-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Ordini con data mancante: </span><span class="sc">{</span>missing_dates_count<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb77-8"><a href="#cb77-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Ordini con prezzo 0: </span><span class="sc">{</span>zero_price_count<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb77-9"><a href="#cb77-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-10"><a href="#cb77-10" aria-hidden="true" tabindex="-1"></a><span class="co"># E2. Logica di Business (Spedizione prima dell'acquisto)</span></span>
+<span id="cb77-11"><a href="#cb77-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Creiamo una maschera booleana</span></span>
+<span id="cb77-12"><a href="#cb77-12" aria-hidden="true" tabindex="-1"></a>invalid_shipping_logic <span class="op">=</span> data_copy[<span class="st">'SHIP_TS'</span>] <span class="op">&lt;</span> data_copy[<span class="st">'PURCHASE_TS'</span>]</span>
+<span id="cb77-13"><a href="#cb77-13" aria-hidden="true" tabindex="-1"></a>num_invalid_logic <span class="op">=</span> invalid_shipping_logic.<span class="bu">sum</span>()</span>
+<span id="cb77-14"><a href="#cb77-14" aria-hidden="true" tabindex="-1"></a>pct_invalid <span class="op">=</span> (num_invalid_logic <span class="op">/</span> <span class="bu">len</span>(data_copy)) <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb77-15"><a href="#cb77-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-16"><a href="#cb77-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Ordini con logica spedizione errata: </span><span class="sc">{</span>num_invalid_logic<span class="sc">}</span><span class="ss"> (</span><span class="sc">{</span>pct_invalid<span class="sc">:.1f}</span><span class="ss">%)"</span>)</span>
+<span id="cb77-17"><a href="#cb77-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-18"><a href="#cb77-18" aria-hidden="true" tabindex="-1"></a><span class="co"># DECISIONE: Nel video decide di NON eliminare queste righe, ma di annotarle.</span></span>
+<span id="cb77-19"><a href="#cb77-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Se volessi eliminarle faresti: df = df[~invalid_shipping_logic]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+--- STEP E: Evaluate Unsolvable Issues ---
+Ordini con data mancante: 11
+Ordini con prezzo 0: 29
+Ordini con logica spedizione errata: 1993 (9.1%)</code></pre>
+</div>
+</div>
+</section>
+<section id="augment-data-arricchire-i-dati" class="level3" data-number="14.0.5">
+<h3 data-number="14.0.5" class="anchored" data-anchor-id="augment-data-arricchire-i-dati"><span class="header-section-number">14.0.5</span> 4. 🅰️ - Augment Data (Arricchire i dati)</h3>
+<div id="67293783" class="cell" data-execution_count="262">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb79"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">--- STEP A: Augment Data ---"</span>)</span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a><span class="co"># A1. Estrazione Granularità Temporale</span></span>
+<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>data_copy[<span class="st">'purchase_year'</span>] <span class="op">=</span>    data_copy[<span class="st">'PURCHASE_TS'</span>].dt.year</span>
+<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a>data_copy[<span class="st">'purchase_month'</span>] <span class="op">=</span> data_copy[<span class="st">'PURCHASE_TS'</span>].dt.month_name()</span>
+<span id="cb79-6"><a href="#cb79-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-7"><a href="#cb79-7" aria-hidden="true" tabindex="-1"></a><span class="co"># A2. Nuova Metrica: Time to Ship (Giorni tra acquisto e spedizione)</span></span>
+<span id="cb79-8"><a href="#cb79-8" aria-hidden="true" tabindex="-1"></a>data_copy[<span class="st">'time_to_ship_days'</span>] <span class="op">=</span> (data_copy[<span class="st">'PURCHASE_TS'</span>] <span class="op">-</span> data_copy[<span class="st">'PURCHASE_TS'</span>]).dt.days</span>
+<span id="cb79-9"><a href="#cb79-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-10"><a href="#cb79-10" aria-hidden="true" tabindex="-1"></a>data_copy.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+--- STEP A: Augment Data ---</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="262">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">USER_ID</th>
+<th data-quarto-table-cell-role="th">ORDER_ID</th>
+<th data-quarto-table-cell-role="th">PURCHASE_TS</th>
+<th data-quarto-table-cell-role="th">SHIP_TS</th>
+<th data-quarto-table-cell-role="th">PRODUCT_NAME</th>
+<th data-quarto-table-cell-role="th">PRODUCT_ID</th>
+<th data-quarto-table-cell-role="th">USD_PRICE</th>
+<th data-quarto-table-cell-role="th">PURCHASE_PLATFORM</th>
+<th data-quarto-table-cell-role="th">MARKETING_CHANNEL</th>
+<th data-quarto-table-cell-role="th">ACCOUNT_CREATION_METHOD</th>
+<th data-quarto-table-cell-role="th">COUNTRY_CODE</th>
+<th data-quarto-table-cell-role="th">purchase_year</th>
+<th data-quarto-table-cell-role="th">purchase_month</th>
+<th data-quarto-table-cell-role="th">time_to_ship_days</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>2c06175e</td>
+<td>0001328c3c220830</td>
+<td>2020-12-24</td>
+<td>2020-12-13</td>
+<td>Nintendo Switch</td>
+<td>e682</td>
+<td>168.0</td>
+<td>website</td>
+<td>affiliate</td>
+<td>unknown</td>
+<td>US</td>
+<td>2020.0</td>
+<td>December</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>ee8e5bc2</td>
+<td>0002af7a5c6100772</td>
+<td>2020-10-01</td>
+<td>2020-09-21</td>
+<td>Nintendo Switch</td>
+<td>e682</td>
+<td>160.61</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>DE</td>
+<td>2020.0</td>
+<td>October</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>9eb4efe0</td>
+<td>0002b8350e167074</td>
+<td>2020-04-21</td>
+<td>2020-02-16</td>
+<td>Nintendo Switch</td>
+<td>8d0d</td>
+<td>151.2</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>US</td>
+<td>2020.0</td>
+<td>April</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>cac7cbaf</td>
+<td>0006d06b98385729</td>
+<td>2020-04-07</td>
+<td>2020-04-04</td>
+<td>Sony PlayStation 5 Bundle</td>
+<td>54ed</td>
+<td>1132.82</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>AU</td>
+<td>2020.0</td>
+<td>April</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>6b0230bc</td>
+<td>00097279a2f46150</td>
+<td>2020-11-24</td>
+<td>2020-08-02</td>
+<td>Nintendo Switch</td>
+<td>8d0d</td>
+<td>33.89</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>TR</td>
+<td>2020.0</td>
+<td>November</td>
+<td>0.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="note-and-document-annotare" class="level3" data-number="14.0.6">
+<h3 data-number="14.0.6" class="anchored" data-anchor-id="note-and-document-annotare"><span class="header-section-number">14.0.6</span> 5. 🇳 - Note and Document (Annotare)</h3>
+<div id="c216cff8" class="cell" data-execution_count="200">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb81"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">--- STEP N: Note &amp; Document ---"</span>)</span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>issues_log <span class="op">=</span> [</span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Issue'</span>: <span class="st">'Formati data inconsistenti'</span>,</span>
+<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Status'</span>: <span class="st">'Solved'</span>,</span>
+<span id="cb81-7"><a href="#cb81-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Action'</span>: <span class="st">'Convertito a datetime ISO 8601'</span>,</span>
+<span id="cb81-8"><a href="#cb81-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Impact'</span>: <span class="st">'100</span><span class="sc">% r</span><span class="st">ows'</span></span>
+<span id="cb81-9"><a href="#cb81-9" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb81-10"><a href="#cb81-10" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb81-11"><a href="#cb81-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Issue'</span>: <span class="st">'Nomi prodotti errati (typos)'</span>,</span>
+<span id="cb81-12"><a href="#cb81-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Status'</span>: <span class="st">'Solved'</span>,</span>
+<span id="cb81-13"><a href="#cb81-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Action'</span>: <span class="st">'Standardizzati tramite mapping'</span>,</span>
+<span id="cb81-14"><a href="#cb81-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Impact'</span>: <span class="st">'Variabile'</span></span>
+<span id="cb81-15"><a href="#cb81-15" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb81-16"><a href="#cb81-16" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb81-17"><a href="#cb81-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Issue'</span>: <span class="st">'Canale Marketing mancante'</span>,</span>
+<span id="cb81-18"><a href="#cb81-18" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Status'</span>: <span class="st">'Solved'</span>,</span>
+<span id="cb81-19"><a href="#cb81-19" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Action'</span>: <span class="st">'Imputato come "Unknown"'</span>,</span>
+<span id="cb81-20"><a href="#cb81-20" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Impact'</span>: <span class="ss">f"</span><span class="sc">{</span>data_copy[<span class="st">'MARKETING_CHANNEL'</span>]<span class="sc">.</span>value_counts()<span class="sc">.</span>get(<span class="st">'Unknown'</span>, <span class="dv">0</span>)<span class="sc">}</span><span class="ss"> righe"</span></span>
+<span id="cb81-21"><a href="#cb81-21" aria-hidden="true" tabindex="-1"></a>    },</span>
+<span id="cb81-22"><a href="#cb81-22" aria-hidden="true" tabindex="-1"></a>    {</span>
+<span id="cb81-23"><a href="#cb81-23" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Issue'</span>: <span class="st">'Spedizione antecedente acquisto'</span>,</span>
+<span id="cb81-24"><a href="#cb81-24" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Status'</span>: <span class="st">'Unsolved'</span>,</span>
+<span id="cb81-25"><a href="#cb81-25" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Action'</span>: <span class="st">'Mantenuto per analisi, segnalato'</span>,</span>
+<span id="cb81-26"><a href="#cb81-26" aria-hidden="true" tabindex="-1"></a>        <span class="st">'Impact'</span>: <span class="ss">f"</span><span class="sc">{</span>pct_invalid<span class="sc">:.1f}</span><span class="ss">%"</span></span>
+<span id="cb81-27"><a href="#cb81-27" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb81-28"><a href="#cb81-28" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb81-29"><a href="#cb81-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-30"><a href="#cb81-30" aria-hidden="true" tabindex="-1"></a>log_df <span class="op">=</span> pd.DataFrame(issues_log)</span>
+<span id="cb81-31"><a href="#cb81-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(log_df)</span>
+<span id="cb81-32"><a href="#cb81-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-33"><a href="#cb81-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Output finale pulito</span></span>
+<span id="cb81-34"><a href="#cb81-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Dataset Finale:"</span>)</span>
+<span id="cb81-35"><a href="#cb81-35" aria-hidden="true" tabindex="-1"></a>data_copy.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+--- STEP N: Note &amp; Document ---
+                             Issue    Status  \
+0       Formati data inconsistenti    Solved   
+1     Nomi prodotti errati (typos)    Solved   
+2        Canale Marketing mancante    Solved   
+3  Spedizione antecedente acquisto  Unsolved   
+
+                             Action     Impact  
+0    Convertito a datetime ISO 8601  100% rows  
+1    Standardizzati tramite mapping  Variabile  
+2           Imputato come "Unknown"    0 righe  
+3  Mantenuto per analisi, segnalato       9.1%  
+
+Dataset Finale:</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="200">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">USER_ID</th>
+<th data-quarto-table-cell-role="th">ORDER_ID</th>
+<th data-quarto-table-cell-role="th">PURCHASE_TS</th>
+<th data-quarto-table-cell-role="th">SHIP_TS</th>
+<th data-quarto-table-cell-role="th">PRODUCT_NAME</th>
+<th data-quarto-table-cell-role="th">PRODUCT_ID</th>
+<th data-quarto-table-cell-role="th">USD_PRICE</th>
+<th data-quarto-table-cell-role="th">PURCHASE_PLATFORM</th>
+<th data-quarto-table-cell-role="th">MARKETING_CHANNEL</th>
+<th data-quarto-table-cell-role="th">ACCOUNT_CREATION_METHOD</th>
+<th data-quarto-table-cell-role="th">COUNTRY_CODE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>2c06175e</td>
+<td>0001328c3c220830</td>
+<td>2020-12-24</td>
+<td>2020-12-13</td>
+<td>Nintendo Switch</td>
+<td>e682</td>
+<td>168.0</td>
+<td>website</td>
+<td>affiliate</td>
+<td>unknown</td>
+<td>US</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>ee8e5bc2</td>
+<td>0002af7a5c6100772</td>
+<td>2020-10-01</td>
+<td>2020-09-21</td>
+<td>Nintendo Switch</td>
+<td>e682</td>
+<td>160.61</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>DE</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>9eb4efe0</td>
+<td>0002b8350e167074</td>
+<td>2020-04-21</td>
+<td>2020-02-16</td>
+<td>Nintendo Switch</td>
+<td>8d0d</td>
+<td>151.2</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>US</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>cac7cbaf</td>
+<td>0006d06b98385729</td>
+<td>2020-04-07</td>
+<td>2020-04-04</td>
+<td>Sony PlayStation 5 Bundle</td>
+<td>54ed</td>
+<td>1132.82</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>AU</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>6b0230bc</td>
+<td>00097279a2f46150</td>
+<td>2020-11-24</td>
+<td>2020-08-02</td>
+<td>Nintendo Switch</td>
+<td>8d0d</td>
+<td>33.89</td>
+<td>website</td>
+<td>direct</td>
+<td>desktop</td>
+<td>TR</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./11_Altair_InteractionsWalkthrough.html" class="pagination-link" aria-label="Interazioni">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Interazioni</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./P02_TellingaStoryWithData.html" class="pagination-link" aria-label="Raccontare una storia con i dati">
+        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Raccontare una storia con i dati</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.dev/vivri161803/PythonForDataAnanlysis/blob/main/P01_Preprocessing_GameZoneOrders.ipynb" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/vivri161803/PythonForDataAnanlysis/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

@@ -13,3 +13,6 @@ wheels/
 build
 pydata_book.egg-info
 pythonfordataanalysis.egg-info
+
+/.quarto/
+**/*.quarto_ipynb
